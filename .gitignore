@@ -1,0 +1,17 @@
+# This is the public repo's OWN .gitignore -- clients/ in the internal monorepo is an
+# exact 1:1 mirror of github.com/17711-services/clients, so this file ships as-is to that
+# repo's own root and applies there too (a contributor cloning the public repo and running the
+# tests below needs this same coverage). Never add anything internal-only here -- that belongs in
+# the platform monorepo's own root .gitignore instead.
+
+python/packages/*/src/**/__pycache__/
+python/packages/*/tests/**/__pycache__/
+python/**/.pytest_cache/
+python/**/*.egg-info/
+python/.venv/
+python/.venv-sync/
+
+node/node_modules/
+node/packages/*/node_modules/
+node/packages/*/dist/
+node/packages/*/*.tsbuildinfo
