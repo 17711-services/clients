@@ -1,0 +1,130 @@
+# @xyz17711 Node.js clients
+
+Typed TypeScript clients for the [17711.xyz](https://api.17711.xyz) microservice fleet -- pay-per-call
+APIs settled in USDC via the [x402](https://x402.org) protocol, listed on
+[x402scan](https://www.x402scan.com/server/f1c7b972-3405-4b75-8b4f-d1bfbd6305ff). One package per service, generated directly from that service's own
+live OpenAPI document, plus optional LangChain.js tool wrappers so an agent can call these
+services directly.
+
+- **Typed**: every request/response is a real TypeScript interface, not `any`.
+- **Async**: every method is already async -- no separate sync form to pick between.
+- **Pay-as-you-go**: a handful of free calls per service per day, then a small USDC payment per
+  call. This client can pay automatically (see below) or just tell you the price and let you
+  decide.
+- **No accounts, no API keys** -- x402 payment (or staying within the free quota) is the only
+  auth this fleet needs.
+
+## Install
+
+```bash
+npm install @xyz17711/ping          # the ping service's own package (pulls in @xyz17711/core)
+npm install @xyz17711/proxy-pool    # the proxy-pool service's own package
+```
+
+Every available service:
+
+- `emoji-match` -- `npm install @xyz17711/emoji-match`
+- `ip-blocklist` -- `npm install @xyz17711/ip-blocklist`
+- `ping` -- `npm install @xyz17711/ping`
+- `proxy-pool` -- `npm install @xyz17711/proxy-pool`
+- `web-scraper` -- `npm install @xyz17711/web-scraper`
+- `websearch` -- `npm install @xyz17711/websearch`
+
+Each service is its own npm package -- installing one never pulls in the others beyond the
+shared `@xyz17711/core`.
+
+## Quickstart
+
+```typescript
+import { Client } from "@xyz17711/ping";
+
+const client = new Client("https://api.17711.xyz/registry/ping-service");
+const result = await client.ping({ echo: "hello" });
+console.log(result.echo, result.pid);
+```
+
+## Paying past the free quota
+
+Every gated tool allows a small number of free calls per day; beyond that it returns a 402
+challenge. Without a wallet configured, this client throws `PaymentRequiredError` with the price,
+network, and payee address attached:
+
+```typescript
+import { Client, PaymentRequiredError } from "@xyz17711/ping";
+
+const client = new Client("https://api.17711.xyz/registry/ping-service");
+try {
+  await client.ping({ echo: "hello" });
+} catch (e) {
+  if (e instanceof PaymentRequiredError) {
+    console.log(`needs ${e.priceUsdc} USDC on ${e.network}, payable to ${e.payTo}`);
+  }
+}
+```
+
+To pay automatically, configure a wallet on the client -- the private key should come from your
+own environment/secrets manager, never a literal string in source code:
+
+```typescript
+import { Client } from "@xyz17711/ping";
+
+const client = new Client("https://api.17711.xyz/registry/ping-service", {
+  x402PrivateKey: process.env.X402_PRIVATE_KEY,
+  x402ExpectedNetwork: "eip155:8453", // Base mainnet; use eip155:84532 for Base Sepolia testnet
+  x402MaxPaymentUsdc: 0.01,           // refuse any single call above this
+  x402MaxTotalSpendUsdc: 1.0,         // refuse once this WALLET's lifetime spend would exceed it
+});
+```
+
+**Never commit a private key.** Both spend caps are required together with the key -- a wallet
+with real funds and no explicit caps refuses to construct at all (`WalletConfigError`), on
+purpose. The cumulative cap is tracked per wallet address, shared by every `Client` you construct
+with that same key in this process -- not reset just because you built a second `Client`.
+
+## LangChain.js
+
+Each service package exposes a `Toolkit` class (from its own `/langchain` subpath) grouping one
+`tool()` per operation.
+
+```typescript
+import { Client } from "@xyz17711/ping";
+import { PingToolkit } from "@xyz17711/ping/langchain";
+
+const client = new Client("https://api.17711.xyz/registry/ping-service", { /* ...wallet options... */ });
+const tools = new PingToolkit(client).getTools();
+
+// use directly
+await tools[0].invoke({ echo: "hello" });
+```
+
+Requires the optional `@langchain/core`+`zod` peer dependencies (`npm install @langchain/core
+zod`) -- importing a package's base client never requires them; only its `/langchain` subpath
+does. A `PaymentRequiredError` thrown by a tool propagates like any other exception.
+
+## Errors
+
+Every non-2xx response throws `PlatformError` (or its `PaymentRequiredError` subclass for a 402),
+carrying the same `code`/`index`/`status`/`message` the service itself returned -- never a bare
+`fetch` error.
+
+## About the generated packages
+
+Every package under `packages/<service>/` -- including its `test/` -- is generated directly from
+that service's own live OpenAPI document, never hand-written, by tooling that lives in this
+project's internal monorepo (not part of this public repo). If a service's API changes, the
+maintainers regenerate and republish the affected package; this repo's own `packages/<service>/`
+directories are the generated OUTPUT, meant to be read and used, not hand-edited or regenerated by
+external contributors. Found a bug or an API change that hasn't been picked up yet? Open an issue.
+
+## Running the tests
+
+```bash
+npm install --workspaces
+npm run build --workspace=@xyz17711/core
+cd packages/<service> && npm test
+```
+
+## License
+
+MIT -- see [`LICENSE`](../LICENSE), shared by every language's client library in the `clients`
+repo this package lives in.

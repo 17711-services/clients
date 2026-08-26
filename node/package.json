@@ -1,0 +1,8 @@
+{
+  "name": "clients-node",
+  "private": true,
+  "description": "Generated TypeScript clients for the 17711.xyz microservice fleet -- see rust/services/MICROSERVICE_GUIDE.md's 'Generated client libraries' section.",
+  "workspaces": [
+    "packages/*"
+  ]
+}

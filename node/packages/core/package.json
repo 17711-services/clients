@@ -1,0 +1,19 @@
+{
+  "name": "@xyz17711/core",
+  "version": "0.1.0",
+  "description": "Core HTTP client (transport, auth, standardized error envelope) for the 17711.xyz microservice fleet.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "npm run build && node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "viem": "^2.21"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^22"
+  }
+}

@@ -12,9 +12,8 @@ generated directly from each service's own live OpenAPI document, never hand-wri
 
 ## Node.js
 
-Coming soon -- npm scope will be `@xyz17711`. Not published yet (the existing generator/packages
-predate the payment/LangChain/generated-tests overhaul the Python client already has); use the
-Python client above in the meantime.
+[`node/`](node/) -- `npm install @xyz17711/ping`. See [`node/README.md`](node/README.md) for the
+full guide, or a package's own README for one specific service.
 
 ## License
 
