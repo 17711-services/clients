@@ -2,7 +2,10 @@ name: Publish Node packages
 
 # Builds @xyz17711/core first (every other package resolves it via the npm workspace, not a
 # published tarball), then publishes each package under node/packages/ whose version isn't
-# already on the registry.
+# already on the registry, tagging the exact commit that got published as `<name>@<version>`
+# right after each successful `npm publish` -- see rust/services/MICROSERVICE_GUIDE.md §10 for
+# why the tag is created HERE, only for what actually got published, rather than assumed from
+# package.json alone.
 #
 # Uses a classic automation token (`secrets.NPM_TOKEN`), not OIDC Trusted Publishing -- unlike
 # PyPI (see publish-python.yml), npm has no "pending publisher" mechanism for a package name that
@@ -33,6 +36,8 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # required to push the per-package release tag
     steps:
       - uses: actions/checkout@v4
 
@@ -65,6 +70,9 @@ jobs:
             fi
             echo "=== publishing $name@$version ==="
             (cd "$pkg_dir" && npm run build && npm publish --access public)
+            local tag="$name@$version"
+            git tag "$tag"
+            git push origin "$tag"
           }
           # @xyz17711/core FIRST, always -- every other package depends on it, and relying on
           # directory listing order (which happens to sort "core" first today) would silently

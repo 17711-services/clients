@@ -1,10 +1,14 @@
 name: Publish Python packages
 
-# Builds every package under python/packages/ and uploads to PyPI via Trusted Publishing (OIDC --
-# no stored token). `skip-existing: true` makes re-uploading an already-published version a no-op
-# instead of a failure, so this never needs its own "did the version change" bookkeeping: it's
-# safe to run on every push to main, and only a package whose pyproject.toml version was actually
-# bumped ever really uploads anything new.
+# Two jobs: `discover` figures out which packages under python/packages/ have a version that
+# isn't on PyPI yet (a plain JSON GET per package -- cheap, no auth needed for a read), `publish`
+# runs once PER PACKAGE THAT NEEDS IT (a matrix, not a loop -- pypa/gh-action-pypi-publish is
+# meant to be invoked once per job) via Trusted Publishing (OIDC, no stored token), then tags the
+# exact commit that got published as `<name>@<version>` -- see
+# rust/services/MICROSERVICE_GUIDE.md §10 for why a tag is created HERE, only for what actually
+# got published, rather than assumed from the manifest alone. `skip-existing: true` on the
+# publish step is a defensive second check (a race between `discover` and this job actually
+# publishing), not the primary "should this run" decision -- that's `discover`'s job.
 #
 # One-time manual setup required before this workflow can publish for the first time (PyPI has no
 # way to grant OIDC trust to a project name that doesn't exist yet, unlike npm's own token-based
@@ -18,7 +22,10 @@ name: Publish Python packages
 #   Workflow filename:    publish-python.yml
 #   Environment name:     (leave blank, or "pypi" -- must match the `environment:` below if set)
 # This is a one-time step PER PACKAGE NAME, done once by a human with PyPI account access --
-# nothing in this repo or its CI can do it automatically.
+# nothing in this repo or its CI can do it automatically. The SAME step is required again for any
+# brand-new package added later (see MICROSERVICE_GUIDE.md §10's own "adding a new service's
+# client" checklist) -- this workflow's own generic discover/publish logic needs no changes for
+# that, only the human PyPI step does.
 
 on:
   push:
@@ -28,10 +35,69 @@ on:
   workflow_dispatch: {}
 
 jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.list.outputs.packages }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - id: list
+        name: Find packages whose version isn't on PyPI yet
+        run: |
+          set -euo pipefail
+          python3 - <<'PYEOF' >> "$GITHUB_OUTPUT"
+          import json
+          import os
+          import pathlib
+          import tomllib
+          import urllib.error
+          import urllib.request
+
+
+          def already_published(name: str, version: str) -> bool:
+              url = f"https://pypi.org/pypi/{name}/{version}/json"
+              try:
+                  urllib.request.urlopen(url, timeout=10)
+                  return True
+              except urllib.error.HTTPError as e:
+                  if e.code == 404:
+                      return False
+                  raise
+
+
+          out = []
+          for pkg_dir in sorted(pathlib.Path("python/packages").iterdir()):
+              pyproject = pkg_dir / "pyproject.toml"
+              if not pyproject.exists():
+                  continue
+              data = tomllib.loads(pyproject.read_text())
+              name = data["project"]["name"]
+              version = data["project"]["version"]
+              if not already_published(name, version):
+                  out.append({"dir": str(pkg_dir), "name": name, "version": version})
+                  print(f"will publish {name}@{version}")
+              else:
+                  print(f"{name}@{version} already on PyPI, skipping")
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              fh.write(f"packages={json.dumps(out)}\n")
+          PYEOF
+
   publish:
+    needs: discover
+    if: needs.discover.outputs.packages != '[]'
     runs-on: ubuntu-latest
     permissions:
       id-token: write # required for PyPI Trusted Publishing
+      contents: write # required to push the per-package release tag
+    strategy:
+      matrix:
+        package: ${{ fromJson(needs.discover.outputs.packages) }}
     steps:
       - uses: actions/checkout@v4
 
@@ -42,17 +108,18 @@ jobs:
       - name: Install the build frontend
         run: python -m pip install --upgrade build
 
-      - name: Build every package's wheel + sdist
-        run: |
-          set -euo pipefail
-          mkdir -p dist
-          for pkg in python/packages/*/; do
-            echo "=== building $pkg ==="
-            python -m build "$pkg" --outdir dist/
-          done
+      - name: Build wheel + sdist
+        run: python -m build "${{ matrix.package.dir }}" --outdir dist/
 
-      - name: Publish to PyPI (skips versions already published)
+      - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: dist/
           skip-existing: true
+
+      - name: Tag the published release
+        run: |
+          set -euo pipefail
+          TAG="${{ matrix.package.name }}@${{ matrix.package.version }}"
+          git tag "$TAG"
+          git push origin "$TAG"
