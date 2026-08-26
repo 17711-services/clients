@@ -1,5 +1,6 @@
 # xyz17711-ping
 
+[![Publish](https://github.com/17711-services/clients/actions/workflows/publish-python.yml/badge.svg)](https://github.com/17711-services/clients/actions/workflows/publish-python.yml)
 [![PyPI](https://img.shields.io/pypi/v/xyz17711-ping)](https://pypi.org/project/xyz17711-ping/)
 [![Python versions](https://img.shields.io/pypi/pyversions/xyz17711-ping)](https://pypi.org/project/xyz17711-ping/)
 [![License](https://img.shields.io/pypi/l/xyz17711-ping)](https://github.com/17711-services/clients/blob/main/LICENSE)

@@ -1,5 +1,6 @@
 # xyz17711-web-scraper
 
+[![Publish](https://github.com/17711-services/clients/actions/workflows/publish-python.yml/badge.svg)](https://github.com/17711-services/clients/actions/workflows/publish-python.yml)
 [![PyPI](https://img.shields.io/pypi/v/xyz17711-web-scraper)](https://pypi.org/project/xyz17711-web-scraper/)
 [![Python versions](https://img.shields.io/pypi/pyversions/xyz17711-web-scraper)](https://pypi.org/project/xyz17711-web-scraper/)
 [![License](https://img.shields.io/pypi/l/xyz17711-web-scraper)](https://github.com/17711-services/clients/blob/main/LICENSE)

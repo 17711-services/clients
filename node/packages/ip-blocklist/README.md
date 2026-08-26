@@ -1,5 +1,6 @@
 # @xyz17711/ip-blocklist
 
+[![Publish](https://github.com/17711-services/clients/actions/workflows/publish-node.yml/badge.svg)](https://github.com/17711-services/clients/actions/workflows/publish-node.yml)
 [![npm](https://img.shields.io/npm/v/@xyz17711/ip-blocklist)](https://www.npmjs.com/package/@xyz17711/ip-blocklist)
 [![License](https://img.shields.io/npm/l/@xyz17711/ip-blocklist)](https://github.com/17711-services/clients/blob/main/LICENSE)
 

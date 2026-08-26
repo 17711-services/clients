@@ -1,0 +1,76 @@
+name: Publish Node packages
+
+# Builds @xyz17711/core first (every other package resolves it via the npm workspace, not a
+# published tarball), then publishes each package under node/packages/ whose version isn't
+# already on the registry.
+#
+# Uses a classic automation token (`secrets.NPM_TOKEN`), not OIDC Trusted Publishing -- unlike
+# PyPI (see publish-python.yml), npm has no "pending publisher" mechanism for a package name that
+# has never been published: OIDC trust can only be configured from a package's OWN settings page
+# on npmjs.com, which doesn't exist until something has been published there at least once. A
+# token-based bootstrap is the documented recommendation for exactly this case. One-time manual
+# setup required before this workflow can publish anything:
+#   1. Create (or have access to) the `xyz17711` npm organization (npmjs.com/org/create) -- every
+#      package here is scoped `@xyz17711/<name>`, which requires that scope to exist first.
+#   2. Generate an npm "Automation" access token (npmjs.com -> Access Tokens -> Generate New
+#      Token -> Automation) for an account with publish rights on that org -- an Automation token
+#      is the type meant for CI: it works without an interactive 2FA prompt.
+#   3. Add it as a repository secret named `NPM_TOKEN` on this repo (Settings -> Secrets and
+#      variables -> Actions).
+# None of this can be done from inside this repo or its CI -- it requires a human with npm
+# account access. Once every package has been published at least once, each one's own npmjs.com
+# settings page can optionally be switched to OIDC Trusted Publishing (Settings -> Trusted
+# Publisher -> GitHub Actions, repo=17711-services/clients, workflow=publish-node.yml) -- a real,
+# not-yet-done upgrade path, not required for this workflow to keep working.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "node/packages/**"
+  workflow_dispatch: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install workspace dependencies
+        run: npm install --workspaces
+
+      - name: Build @xyz17711/core
+        # Every other package resolves @xyz17711/core through the npm workspace symlink, not a
+        # published tarball -- its own dist/ must exist before any other package can build.
+        run: npm run build --workspace=@xyz17711/core
+
+      - name: Publish every package whose version isn't on the registry yet
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+          publish_one() {
+            local pkg_dir="$1"
+            local name version
+            name=$(node -p "require('./${pkg_dir}package.json').name")
+            version=$(node -p "require('./${pkg_dir}package.json').version")
+            if npm view "$name@$version" version >/dev/null 2>&1; then
+              echo "=== $name@$version already published, skipping ==="
+              return 0
+            fi
+            echo "=== publishing $name@$version ==="
+            (cd "$pkg_dir" && npm run build && npm publish --access public)
+          }
+          # @xyz17711/core FIRST, always -- every other package depends on it, and relying on
+          # directory listing order (which happens to sort "core" first today) would silently
+          # break the day a package sorts before it alphabetically.
+          publish_one "node/packages/core/"
+          for pkg_dir in node/packages/*/; do
+            [[ "$pkg_dir" == "node/packages/core/" ]] && continue
+            publish_one "$pkg_dir"
+          done

@@ -1,0 +1,58 @@
+name: Publish Python packages
+
+# Builds every package under python/packages/ and uploads to PyPI via Trusted Publishing (OIDC --
+# no stored token). `skip-existing: true` makes re-uploading an already-published version a no-op
+# instead of a failure, so this never needs its own "did the version change" bookkeeping: it's
+# safe to run on every push to main, and only a package whose pyproject.toml version was actually
+# bumped ever really uploads anything new.
+#
+# One-time manual setup required before this workflow can publish for the first time (PyPI has no
+# way to grant OIDC trust to a project name that doesn't exist yet, unlike npm's own token-based
+# bootstrap -- see publish-node.yml's own comment on why THAT one differs): for each package name
+# below, a PyPI account owner adds a "pending publisher" at
+# https://pypi.org/manage/account/publishing/ with:
+#   PyPI project name:   xyz17711 / xyz17711-ping / xyz17711-proxy-pool / xyz17711-web-scraper /
+#                         xyz17711-websearch / xyz17711-emoji-match / xyz17711-ip-blocklist
+#   Owner:                17711-services
+#   Repository name:      clients
+#   Workflow filename:    publish-python.yml
+#   Environment name:     (leave blank, or "pypi" -- must match the `environment:` below if set)
+# This is a one-time step PER PACKAGE NAME, done once by a human with PyPI account access --
+# nothing in this repo or its CI can do it automatically.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "python/packages/**"
+  workflow_dispatch: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # required for PyPI Trusted Publishing
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the build frontend
+        run: python -m pip install --upgrade build
+
+      - name: Build every package's wheel + sdist
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          for pkg in python/packages/*/; do
+            echo "=== building $pkg ==="
+            python -m build "$pkg" --outdir dist/
+          done
+
+      - name: Publish to PyPI (skips versions already published)
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
+          skip-existing: true

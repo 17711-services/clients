@@ -10,6 +10,7 @@ python/**/.pytest_cache/
 python/**/*.egg-info/
 python/.venv/
 python/.venv-sync/
+python/packages/*/dist/
 
 node/node_modules/
 node/packages/*/node_modules/

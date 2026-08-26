@@ -1,5 +1,6 @@
 # xyz17711-ip-blocklist
 
+[![Publish](https://github.com/17711-services/clients/actions/workflows/publish-python.yml/badge.svg)](https://github.com/17711-services/clients/actions/workflows/publish-python.yml)
 [![PyPI](https://img.shields.io/pypi/v/xyz17711-ip-blocklist)](https://pypi.org/project/xyz17711-ip-blocklist/)
 [![Python versions](https://img.shields.io/pypi/pyversions/xyz17711-ip-blocklist)](https://pypi.org/project/xyz17711-ip-blocklist/)
 [![License](https://img.shields.io/pypi/l/xyz17711-ip-blocklist)](https://github.com/17711-services/clients/blob/main/LICENSE)

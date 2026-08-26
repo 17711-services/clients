@@ -1,5 +1,7 @@
 # @xyz17711 Node.js clients
 
+[![Publish](https://github.com/17711-services/clients/actions/workflows/publish-node.yml/badge.svg)](https://github.com/17711-services/clients/actions/workflows/publish-node.yml)
+
 Typed TypeScript clients for the [17711.xyz](https://api.17711.xyz) microservice fleet -- pay-per-call
 APIs settled in USDC via the [x402](https://x402.org) protocol, listed on
 [x402scan](https://www.x402scan.com/server/f1c7b972-3405-4b75-8b4f-d1bfbd6305ff). One package per service, generated directly from that service's own

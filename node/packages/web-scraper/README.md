@@ -1,5 +1,6 @@
 # @xyz17711/web-scraper
 
+[![Publish](https://github.com/17711-services/clients/actions/workflows/publish-node.yml/badge.svg)](https://github.com/17711-services/clients/actions/workflows/publish-node.yml)
 [![npm](https://img.shields.io/npm/v/@xyz17711/web-scraper)](https://www.npmjs.com/package/@xyz17711/web-scraper)
 [![License](https://img.shields.io/npm/l/@xyz17711/web-scraper)](https://github.com/17711-services/clients/blob/main/LICENSE)
 
