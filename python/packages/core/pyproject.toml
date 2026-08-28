@@ -25,7 +25,7 @@ web-scraper = ["xyz17711-web-scraper"]
 websearch = ["xyz17711-websearch"]
 emoji-match = ["xyz17711-emoji-match"]
 ip-blocklist = ["xyz17711-ip-blocklist"]
-service-registry = ["xyz17711-catalog"]
+catalog = ["xyz17711-catalog"]
 payments = ["eth-account>=0.13"]
 test = ["pytest>=8", "eth-account>=0.13"]
 

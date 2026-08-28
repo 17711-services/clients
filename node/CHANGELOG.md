@@ -32,6 +32,10 @@ Changelog](https://keepachangelog.com/).
 - New service packages: `web-scraper`, `websearch`, `emoji-match`, `ip-blocklist` -- every
   freemium/x402-gated, product-facing service in the fleet now has a Node client, matching the
   Python side.
+- New `catalog` package -- the Bazaar (`findServicesByCapability`/`search`/`category`, free to
+  call, no x402 gating): semantic/keyword search over the fleet's own tool catalog. A normal,
+  fully generated package with the same README/tests/LangChain treatment as every other one
+  above.
 
 ### Fixed
 

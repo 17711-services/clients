@@ -37,11 +37,17 @@ package). Format loosely follows [Keep a Changelog](https://keepachangelog.com/)
 - New service packages: `web-scraper`, `websearch`, `emoji-match`, `ip-blocklist` -- every
   freemium/x402-gated, product-facing service in the fleet now has a client (`ping`/`proxy-pool`
   already did), each with the full README/tests/LangChain treatment above.
+- New `catalog` package -- the Bazaar (`find_services_by_capability`/`search`/`category`, free to
+  call, no x402 gating): semantic/keyword search over the fleet's own tool catalog. A normal,
+  fully generated package with the same README/tests/LangChain treatment as every other one
+  above.
 
 ### Fixed
 
 - `xyz17711[service-registry]` extra pointed at a distribution (`xyz17711-service-registry`) that
-  was never actually published -- corrected to `xyz17711-catalog`, the real package name.
+  was never actually published -- corrected to `xyz17711-catalog`, the real package name, and the
+  extra itself renamed `service-registry` -> `catalog` to match the package's own directory name
+  like every other extra.
 - Generated docstrings (model classes, client methods) now escape backslashes and double quotes
   from the underlying OpenAPI description before embedding it in a Python docstring -- an
   unescaped description ending in `"` or `\` could otherwise produce a `SyntaxError` in the
