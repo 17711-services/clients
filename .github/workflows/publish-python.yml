@@ -53,6 +53,7 @@ jobs:
           python3 - <<'PYEOF' >> "$GITHUB_OUTPUT"
           import json
           import os
+          import sys
           import pathlib
           import tomllib
           import urllib.error
@@ -80,9 +81,9 @@ jobs:
               version = data["project"]["version"]
               if not already_published(name, version):
                   out.append({"dir": str(pkg_dir), "name": name, "version": version})
-                  print(f"will publish {name}@{version}")
+                  print(f"will publish {name}@{version}", file=sys.stderr)
               else:
-                  print(f"{name}@{version} already on PyPI, skipping")
+                  print(f"{name}@{version} already on PyPI, skipping", file=sys.stderr)
 
           with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
               fh.write(f"packages={json.dumps(out)}\n")

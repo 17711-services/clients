@@ -47,11 +47,13 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: Install workspace dependencies
+        working-directory: node
         run: npm install --workspaces
 
       - name: Build @xyz17711/core
         # Every other package resolves @xyz17711/core through the npm workspace symlink, not a
         # published tarball -- its own dist/ must exist before any other package can build.
+        working-directory: node
         run: npm run build --workspace=@xyz17711/core
 
       - name: Publish every package whose version isn't on the registry yet
