@@ -1,5 +1,5 @@
 /**
- * LangChain.js tools for 🧩 url-extract-service, grouped in one Toolkit -- one tool per operation, each just an async function (JS has no separate sync form to generate). Requires the `@langchain/core`+`zod` peer dependencies declared in this package's own package.json -- imported from `url-extract/langchain`, never from the package root, so importing the base client never requires them installed.
+ * LangChain.js tools for url-extract-service, grouped in one Toolkit -- one tool per operation, each just an async function (JS has no separate sync form to generate). Requires the `@langchain/core`+`zod` peer dependencies declared in this package's own package.json -- imported from `url-extract/langchain`, never from the package root, so importing the base client never requires them installed.
  */
 
 import { tool } from "@langchain/core/tools";

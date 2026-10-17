@@ -34,7 +34,7 @@ class EmojiMatchToolkit(BaseToolkit):
                 func=_suggest_emojis,
                 coroutine=_asuggest_emojis,
                 name="suggest_emojis",
-                description="Suggests 1-5 emoji matching a text's lexicon, English/French best-supported ($0.001, x402)",
+                description="Emoji suggestion API: text in 18 languages in, the 1 to 5 best matching emoji out, deterministic and fast ($0.002, x402)",
                 args_schema=SuggestEmojisRequest,
             ),
         ]

@@ -6,11 +6,26 @@ package). Format loosely follows [Keep a Changelog](https://keepachangelog.com/)
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-17
+
+`xyz17711`, `xyz17711-ping`, `xyz17711-proxy-pool` and `xyz17711-web-scraper` move to 0.1.1; every
+other package below is published for the first time as 0.1.0.
+
+### Added
+
+- Nine new generated clients: `xyz17711-address-risk`, `-company-check`, `-company-profile`,
+  `-contact-finder`, `-domain-security`, `-extract-correct`, `-sanctions-check`, `-token-verdict`
+  and `-url-extract` (each with its `xyz17711[<service>]` extra).
+- Package metadata on every package: project URLs, keywords, classifiers, author, and a plain
+  one-line description.
+
 ### Fixed
 
 - The core `Client` now echoes the 402 challenge's `extensions` (notably `bazaar`) back unchanged in
   the signed payment payload, as x402 v2 requires. Without it a facilitator cannot catalog the
   paid resource in its Bazaar. Omitted when the challenge carries none.
+- Generated docstrings and READMEs no longer carry a stale price or a decorative emoji in the
+  service title.
 
 ## [0.1.0] - 2026-08-26
 

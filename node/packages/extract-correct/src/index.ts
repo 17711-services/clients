@@ -1,5 +1,5 @@
 /**
- * Typed HTTP client and request/response interfaces for 🩹 extract-correct-service.
+ * Typed HTTP client and request/response interfaces for extract-correct-service.
  */
 
 import { Client as BaseClient, type ClientOptions } from "@xyz17711/core";
@@ -44,7 +44,7 @@ export interface ParseJsonRequest {
   text: string;
 }
 
-/** Typed client for 🩹 extract-correct-service, e.g. `client.parseJson(...)`. */
+/** Typed client for extract-correct-service, e.g. `client.parseJson(...)`. */
 export class Client extends BaseClient {
   /** JSON repair API: extract valid JSON from messy text or model output and fix it against a JSON Schema ($0.006, x402) */
   async parseJson(request: ParseJsonRequest): Promise<ParseJsonResponse> {

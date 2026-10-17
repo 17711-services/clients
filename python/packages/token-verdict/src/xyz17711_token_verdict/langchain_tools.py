@@ -1,4 +1,4 @@
-"""LangChain `StructuredTool`s for 🪙 token-verdict-service, grouped in one `BaseToolkit` -- one tool per operation, each with both a sync and an async implementation. Requires the `langchain` extra: pip install "xyz17711-token-verdict[langchain]"."""
+"""LangChain `StructuredTool`s for token-verdict-service, grouped in one `BaseToolkit` -- one tool per operation, each with both a sync and an async implementation. Requires the `langchain` extra: pip install "xyz17711-token-verdict[langchain]"."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class TokenVerdictToolkit(BaseToolkit):
-    """LangChain toolkit for 🪙 token-verdict-service -- one StructuredTool per operation, reusing this package's own generated client and request models directly. Each tool carries both a sync and an async (`coroutine=`) implementation, so `.invoke()` and `.ainvoke()` both work."""
+    """LangChain toolkit for token-verdict-service -- one StructuredTool per operation, reusing this package's own generated client and request models directly. Each tool carries both a sync and an async (`coroutine=`) implementation, so `.invoke()` and `.ainvoke()` both work."""
 
     client: Client
     model_config = {"arbitrary_types_allowed": True}

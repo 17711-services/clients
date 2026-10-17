@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/v/@xyz17711/token-verdict)](https://www.npmjs.com/package/@xyz17711/token-verdict)
 [![License](https://img.shields.io/npm/l/@xyz17711/token-verdict)](https://github.com/17711-services/clients/blob/main/LICENSE)
 
-Typed TypeScript client for **🪙 token-verdict-service**, part of the
+Typed TypeScript client for **token-verdict-service**, part of the
 [17711.xyz](https://api.17711.xyz) microservice fleet -- pay-per-call APIs settled in USDC via
 [x402](https://x402.org), listed on [x402scan](https://www.x402scan.com/server/f1c7b972-3405-4b75-8b4f-d1bfbd6305ff).
 
@@ -25,7 +25,7 @@ npm install @xyz17711/token-verdict
 ```typescript
 import { Client } from "@xyz17711/token-verdict";
 
-const client = new Client("https://api.17711.xyz/registry/🪙 token-verdict-service");
+const client = new Client("https://api.17711.xyz/registry/token-verdict-service");
 // see the Methods table above for every available call and its request/response type
 ```
 
@@ -38,7 +38,7 @@ network, and payee address attached:
 ```typescript
 import { Client, PaymentRequiredError } from "@xyz17711/token-verdict";
 
-const client = new Client("https://api.17711.xyz/registry/🪙 token-verdict-service");
+const client = new Client("https://api.17711.xyz/registry/token-verdict-service");
 try {
   await client.getVerdict(/* ... */);
 } catch (e) {
@@ -54,7 +54,7 @@ own environment/secrets manager, never a literal string in source code:
 ```typescript
 import { Client } from "@xyz17711/token-verdict";
 
-const client = new Client("https://api.17711.xyz/registry/🪙 token-verdict-service", {
+const client = new Client("https://api.17711.xyz/registry/token-verdict-service", {
   x402PrivateKey: process.env.X402_PRIVATE_KEY,
   x402ExpectedNetwork: "eip155:8453", // Base mainnet; use eip155:84532 for Base Sepolia testnet
   x402MaxPaymentUsdc: 0.01,           // refuse any single call above this
@@ -73,7 +73,7 @@ with that same key in this process.
 import { Client } from "@xyz17711/token-verdict";
 import { TokenVerdictToolkit } from "@xyz17711/token-verdict/langchain";
 
-const client = new Client("https://api.17711.xyz/registry/🪙 token-verdict-service", { /* ...wallet options... */ });
+const client = new Client("https://api.17711.xyz/registry/token-verdict-service", { /* ...wallet options... */ });
 const tools = new TokenVerdictToolkit(client).getTools();
 ```
 

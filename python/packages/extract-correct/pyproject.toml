@@ -1,11 +1,30 @@
 [project]
 name = "xyz17711-extract-correct"
 version = "0.1.0"
-description = "Generated typed client for the 🩹 extract-correct-service 17711.xyz microservice."
+description = "Typed Python client for the 17711.xyz Extract Correct API: pay-per-call, settled in USDC via x402."
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.9"
+authors = [{ name = "17711 Services" }]
+keywords = ["x402", "usdc", "api-client", "pay-per-call", "ai-agents", "mcp", "langchain", "extract-correct"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+]
 dependencies = ["xyz17711>=0.1.0"]
+
+[project.urls]
+Homepage = "https://api.17711.xyz"
+Repository = "https://github.com/17711-services/clients"
+Documentation = "https://github.com/17711-services/clients/tree/main/python/packages/extract-correct#readme"
+Issues = "https://github.com/17711-services/clients/issues"
 
 # Only needed to import `langchain_tools` (never the base `client`/`models` modules) -- see that
 # module's own doc comment for why it's an extra, never a hard dependency.

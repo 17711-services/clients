@@ -53,12 +53,12 @@ export class Client extends BaseClient {
     return this.post<GetTaskStatusResponse>("/v1/websearch/get_task_status", request);
   }
 
-  /** Searches the web, always through a free public proxy sourced from proxy-pool ($0.003, x402) */
+  /** Web search API for agents: search the web and get result titles, URLs and snippets as JSON ($0.005, x402) */
   async searchWeb(request: SearchWebRequest): Promise<SearchWebResponse> {
     return this.post<SearchWebResponse>("/v1/websearch/search_web", request);
   }
 
-  /** Enqueues a websearch_search_web job and returns a task id immediately ($0.003, x402) */
+  /** [Deprecated - use websearch_search_web] Enqueues a websearch_search_web job and returns a task id immediately ($0.005, x402) */
   async searchWebAsync(request: SearchWebAsyncRequest): Promise<AsyncTaskResponse> {
     return this.post<AsyncTaskResponse>("/v1/websearch/search_web_async", request);
   }

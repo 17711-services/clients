@@ -22,10 +22,10 @@ pip install "xyz17711[web-scraper]"
 
 | Method | Description |
 | --- | --- |
-| `extract_markdown` | Fetches a URL and returns its main article content as clean Markdown ($0.007, x402) |
+| `extract_markdown` | URL to Markdown: read any web page and get its main article content as clean Markdown for agents ($0.003, x402) |
 | `get_task_status` | Polls for the result of a task enqueued by a *_async tool |
-| `scrape_url` | Fetches an arbitrary URL through a proxy sourced from proxy-pool, never directly ($0.005, x402) |
-| `scrape_url_async` | Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.005, x402) |
+| `scrape_url` | Scrape URL: fetch any web page through a proxy and get its status, content type and raw HTML ($0.002, x402) |
+| `scrape_url_async` | [Deprecated - use web_scraper_scrape_url] Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.002, x402) |
 
 Every method above has both a sync form and an async form (the `a`-prefixed sibling, e.g.
 `aextract_markdown` next to `extract_markdown`), sharing one underlying client.

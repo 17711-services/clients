@@ -15,12 +15,12 @@ class Client(_BaseClient):
     """Typed client for web-scraper. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `aextract_markdown` next to `extract_markdown`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
 
     def extract_markdown(self, request: ExtractMarkdownRequest) -> ExtractMarkdownResponse:
-        """Fetches a URL and returns its main article content as clean Markdown ($0.007, x402)"""
+        """URL to Markdown: read any web page and get its main article content as clean Markdown for agents ($0.003, x402)"""
         logger.debug("extract_markdown: calling %s", "/v1/web-scraper/extract_markdown")
         return ExtractMarkdownResponse.model_validate(self._post("/v1/web-scraper/extract_markdown", request.model_dump(mode="json", exclude_none=True)))
 
     async def aextract_markdown(self, request: ExtractMarkdownRequest) -> ExtractMarkdownResponse:
-        """Fetches a URL and returns its main article content as clean Markdown ($0.007, x402) (async)"""
+        """URL to Markdown: read any web page and get its main article content as clean Markdown for agents ($0.003, x402) (async)"""
         logger.debug("aextract_markdown: calling %s", "/v1/web-scraper/extract_markdown")
         return ExtractMarkdownResponse.model_validate(await self._apost("/v1/web-scraper/extract_markdown", request.model_dump(mode="json", exclude_none=True)))
 
@@ -35,22 +35,22 @@ class Client(_BaseClient):
         return GetTaskStatusResponse.model_validate(await self._apost("/v1/web-scraper/get_task_status", request.model_dump(mode="json", exclude_none=True)))
 
     def scrape_url(self, request: ScrapeUrlRequest) -> ScrapeUrlResponse:
-        """Fetches an arbitrary URL through a proxy sourced from proxy-pool, never directly ($0.005, x402)"""
+        """Scrape URL: fetch any web page through a proxy and get its status, content type and raw HTML ($0.002, x402)"""
         logger.debug("scrape_url: calling %s", "/v1/web-scraper/scrape_url")
         return ScrapeUrlResponse.model_validate(self._post("/v1/web-scraper/scrape_url", request.model_dump(mode="json", exclude_none=True)))
 
     async def ascrape_url(self, request: ScrapeUrlRequest) -> ScrapeUrlResponse:
-        """Fetches an arbitrary URL through a proxy sourced from proxy-pool, never directly ($0.005, x402) (async)"""
+        """Scrape URL: fetch any web page through a proxy and get its status, content type and raw HTML ($0.002, x402) (async)"""
         logger.debug("ascrape_url: calling %s", "/v1/web-scraper/scrape_url")
         return ScrapeUrlResponse.model_validate(await self._apost("/v1/web-scraper/scrape_url", request.model_dump(mode="json", exclude_none=True)))
 
     def scrape_url_async(self, request: ScrapeUrlAsyncRequest) -> AsyncTaskResponse:
-        """Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.005, x402)"""
+        """[Deprecated - use web_scraper_scrape_url] Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.002, x402)"""
         logger.debug("scrape_url_async: calling %s", "/v1/web-scraper/scrape_url_async")
         return AsyncTaskResponse.model_validate(self._post("/v1/web-scraper/scrape_url_async", request.model_dump(mode="json", exclude_none=True)))
 
     async def ascrape_url_async(self, request: ScrapeUrlAsyncRequest) -> AsyncTaskResponse:
-        """Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.005, x402) (async)"""
+        """[Deprecated - use web_scraper_scrape_url] Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.002, x402) (async)"""
         logger.debug("ascrape_url_async: calling %s", "/v1/web-scraper/scrape_url_async")
         return AsyncTaskResponse.model_validate(await self._apost("/v1/web-scraper/scrape_url_async", request.model_dump(mode="json", exclude_none=True)))
 

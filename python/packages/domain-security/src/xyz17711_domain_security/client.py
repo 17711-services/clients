@@ -1,4 +1,4 @@
-"""Typed HTTP client for 🛡️ domain-security-service -- one method per operation, each with a sync form and an async (`a`-prefixed) form."""
+"""Typed HTTP client for domain-security-service -- one method per operation, each with a sync form and an async (`a`-prefixed) form."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class Client(_BaseClient):
-    """Typed client for 🛡️ domain-security-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `aget_report` next to `get_report`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
+    """Typed client for domain-security-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `aget_report` next to `get_report`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
 
     def get_report(self, request: GetReportRequest) -> GetReportResponse:
         """Domain security check: SSL certificate check, DMARC SPF check, DNSSEC, security headers and blocklist status with a score ($0.009, x402)"""

@@ -19,7 +19,7 @@ export class PingToolkit {
         async (input) => this.client.ping(input),
         {
           name: "ping",
-          description: "Echoes back the input plus this process's pid ($0.001, x402)",
+          description: "x402 ping: the cheapest end-to-end payment test for an x402 client or agent wallet, returns an echo and the server pid ($0.002, x402)",
           schema: z.object({ delay_ms: z.number().optional(), echo: z.string() }),
         },
       ),

@@ -1,5 +1,5 @@
 /**
- * Typed HTTP client and request/response interfaces for 🪙 token-verdict-service.
+ * Typed HTTP client and request/response interfaces for token-verdict-service.
  */
 
 import { Client as BaseClient, type ClientOptions } from "@xyz17711/core";
@@ -115,7 +115,7 @@ export interface GetVerdictRequest {
   max_age_seconds?: number | null;
 }
 
-/** Typed client for 🪙 token-verdict-service, e.g. `client.getVerdict(...)`. */
+/** Typed client for token-verdict-service, e.g. `client.getVerdict(...)`. */
 export class Client extends BaseClient {
   /** Token verdict and security check: is this token safe? Honeypot, rug pull and scam detection with taxes, liquidity and admin powers ($0.01, x402) */
   async getVerdict(request: GetVerdictRequest): Promise<GetVerdictResponse> {

@@ -22,7 +22,7 @@ pip install "xyz17711[ip-blocklist]"
 
 | Method | Description |
 | --- | --- |
-| `check_ip` | Checks whether an IPv4 address appears on any of several public IP blocklists ($0.002, x402) |
+| `check_ip` | IP reputation check: is this IPv4 address on a public threat blocklist (Tor exit nodes, botnets, spam networks) ($0.010, x402) |
 
 Every method above has both a sync form and an async form (the `a`-prefixed sibling, e.g.
 `acheck_ip` next to `check_ip`), sharing one underlying client.

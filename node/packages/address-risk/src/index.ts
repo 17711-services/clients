@@ -1,5 +1,5 @@
 /**
- * Typed HTTP client and request/response interfaces for 🛑 address-risk-service.
+ * Typed HTTP client and request/response interfaces for address-risk-service.
  */
 
 import { Client as BaseClient, type ClientOptions } from "@xyz17711/core";
@@ -43,7 +43,7 @@ export interface CheckAddressRequest {
   max_age_seconds?: number | null;
 }
 
-/** Typed client for 🛑 address-risk-service, e.g. `client.checkAddress(...)`. */
+/** Typed client for address-risk-service, e.g. `client.checkAddress(...)`. */
 export class Client extends BaseClient {
   /** Wallet address risk check: sanctioned address and phishing check for a crypto wallet or contract before you send funds, with theft, scam, mixer and blacklist flags ($0.005, x402) */
   async checkAddress(request: CheckAddressRequest): Promise<CheckAddressResponse> {

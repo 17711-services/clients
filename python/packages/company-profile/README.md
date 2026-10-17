@@ -5,7 +5,7 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/xyz17711-company-profile)](https://pypi.org/project/xyz17711-company-profile/)
 [![License](https://img.shields.io/pypi/l/xyz17711-company-profile)](https://github.com/17711-services/clients/blob/main/LICENSE)
 
-Typed Python client for **🏢 company-profile-service**, part of the
+Typed Python client for **company-profile-service**, part of the
 [17711.xyz](https://api.17711.xyz) microservice fleet -- pay-per-call APIs settled in USDC via
 [x402](https://x402.org), listed on [x402scan](https://www.x402scan.com/server/f1c7b972-3405-4b75-8b4f-d1bfbd6305ff). See the
 [Python family README](https://github.com/17711-services/clients/blob/main/python/README.md)
@@ -32,7 +32,7 @@ Every method above has both a sync form and an async form (the `a`-prefixed sibl
 ```python
 from xyz17711_company_profile import Client
 
-client = Client("https://api.17711.xyz/registry/🏢 company-profile-service")
+client = Client("https://api.17711.xyz/registry/company-profile-service")
 # see the Methods table above for every available call and its request/response model
 ```
 
@@ -46,7 +46,7 @@ pip install "xyz17711-company-profile[langchain]"
 from xyz17711_company_profile import Client
 from xyz17711_company_profile.langchain_tools import CompanyProfileToolkit
 
-client = Client("https://api.17711.xyz/registry/🏢 company-profile-service")
+client = Client("https://api.17711.xyz/registry/company-profile-service")
 tools = CompanyProfileToolkit(client=client).get_tools()
 ```
 

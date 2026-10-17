@@ -1,4 +1,4 @@
-"""LangChain `StructuredTool`s for 🩹 extract-correct-service, grouped in one `BaseToolkit` -- one tool per operation, each with both a sync and an async implementation. Requires the `langchain` extra: pip install "xyz17711-extract-correct[langchain]"."""
+"""LangChain `StructuredTool`s for extract-correct-service, grouped in one `BaseToolkit` -- one tool per operation, each with both a sync and an async implementation. Requires the `langchain` extra: pip install "xyz17711-extract-correct[langchain]"."""
 
 from __future__ import annotations
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 class ExtractCorrectToolkit(BaseToolkit):
-    """LangChain toolkit for 🩹 extract-correct-service -- one StructuredTool per operation, reusing this package's own generated client and request models directly. Each tool carries both a sync and an async (`coroutine=`) implementation, so `.invoke()` and `.ainvoke()` both work."""
+    """LangChain toolkit for extract-correct-service -- one StructuredTool per operation, reusing this package's own generated client and request models directly. Each tool carries both a sync and an async (`coroutine=`) implementation, so `.invoke()` and `.ainvoke()` both work."""
 
     client: Client
     model_config = {"arbitrary_types_allowed": True}

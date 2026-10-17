@@ -1,4 +1,4 @@
-"""Pydantic request/response models for 🧩 url-extract-service."""
+"""Pydantic request/response models for url-extract-service."""
 
 from __future__ import annotations
 

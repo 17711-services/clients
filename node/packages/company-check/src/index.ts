@@ -1,5 +1,5 @@
 /**
- * Typed HTTP client and request/response interfaces for 🏢 company-check-service.
+ * Typed HTTP client and request/response interfaces for company-check-service.
  */
 
 import { Client as BaseClient, type ClientOptions } from "@xyz17711/core";
@@ -143,7 +143,7 @@ export interface VerifyCompanyRequest {
   vat_number?: string | null;
 }
 
-/** Typed client for 🏢 company-check-service, e.g. `client.verifyCompany(...)`. */
+/** Typed client for company-check-service, e.g. `client.verifyCompany(...)`. */
 export class Client extends BaseClient {
   /** Company check (KYB) and business verification: VAT validation (VIES), LEI lookup, registry status and company directors ($0.009, x402) */
   async verifyCompany(request: VerifyCompanyRequest): Promise<VerifyCompanyResponse> {

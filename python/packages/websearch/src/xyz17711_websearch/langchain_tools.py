@@ -57,14 +57,14 @@ class WebsearchToolkit(BaseToolkit):
                 func=_search_web,
                 coroutine=_asearch_web,
                 name="search_web",
-                description="Searches the web, always through a free public proxy sourced from proxy-pool ($0.003, x402)",
+                description="Web search API for agents: search the web and get result titles, URLs and snippets as JSON ($0.005, x402)",
                 args_schema=SearchWebRequest,
             ),
             StructuredTool.from_function(
                 func=_search_web_async,
                 coroutine=_asearch_web_async,
                 name="search_web_async",
-                description="Enqueues a websearch_search_web job and returns a task id immediately ($0.003, x402)",
+                description="[Deprecated - use websearch_search_web] Enqueues a websearch_search_web job and returns a task id immediately ($0.005, x402)",
                 args_schema=SearchWebAsyncRequest,
             ),
         ]

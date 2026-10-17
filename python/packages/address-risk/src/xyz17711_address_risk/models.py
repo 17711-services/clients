@@ -1,4 +1,4 @@
-"""Pydantic request/response models for 🛑 address-risk-service."""
+"""Pydantic request/response models for address-risk-service."""
 
 from __future__ import annotations
 

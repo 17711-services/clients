@@ -1,4 +1,4 @@
-"""Typed HTTP client for 🩹 extract-correct-service -- one method per operation, each with a sync form and an async (`a`-prefixed) form."""
+"""Typed HTTP client for extract-correct-service -- one method per operation, each with a sync form and an async (`a`-prefixed) form."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class Client(_BaseClient):
-    """Typed client for 🩹 extract-correct-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `aparse_json` next to `parse_json`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
+    """Typed client for extract-correct-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `aparse_json` next to `parse_json`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
 
     def parse_json(self, request: ParseJsonRequest) -> ParseJsonResponse:
         """JSON repair API: extract valid JSON from messy text or model output and fix it against a JSON Schema ($0.006, x402)"""

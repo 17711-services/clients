@@ -25,22 +25,22 @@ class Client(_BaseClient):
         return GetTaskStatusResponse.model_validate(await self._apost("/v1/websearch/get_task_status", request.model_dump(mode="json", exclude_none=True)))
 
     def search_web(self, request: SearchWebRequest) -> SearchWebResponse:
-        """Searches the web, always through a free public proxy sourced from proxy-pool ($0.003, x402)"""
+        """Web search API for agents: search the web and get result titles, URLs and snippets as JSON ($0.005, x402)"""
         logger.debug("search_web: calling %s", "/v1/websearch/search_web")
         return SearchWebResponse.model_validate(self._post("/v1/websearch/search_web", request.model_dump(mode="json", exclude_none=True)))
 
     async def asearch_web(self, request: SearchWebRequest) -> SearchWebResponse:
-        """Searches the web, always through a free public proxy sourced from proxy-pool ($0.003, x402) (async)"""
+        """Web search API for agents: search the web and get result titles, URLs and snippets as JSON ($0.005, x402) (async)"""
         logger.debug("asearch_web: calling %s", "/v1/websearch/search_web")
         return SearchWebResponse.model_validate(await self._apost("/v1/websearch/search_web", request.model_dump(mode="json", exclude_none=True)))
 
     def search_web_async(self, request: SearchWebAsyncRequest) -> AsyncTaskResponse:
-        """Enqueues a websearch_search_web job and returns a task id immediately ($0.003, x402)"""
+        """[Deprecated - use websearch_search_web] Enqueues a websearch_search_web job and returns a task id immediately ($0.005, x402)"""
         logger.debug("search_web_async: calling %s", "/v1/websearch/search_web_async")
         return AsyncTaskResponse.model_validate(self._post("/v1/websearch/search_web_async", request.model_dump(mode="json", exclude_none=True)))
 
     async def asearch_web_async(self, request: SearchWebAsyncRequest) -> AsyncTaskResponse:
-        """Enqueues a websearch_search_web job and returns a task id immediately ($0.003, x402) (async)"""
+        """[Deprecated - use websearch_search_web] Enqueues a websearch_search_web job and returns a task id immediately ($0.005, x402) (async)"""
         logger.debug("asearch_web_async: calling %s", "/v1/websearch/search_web_async")
         return AsyncTaskResponse.model_validate(await self._apost("/v1/websearch/search_web_async", request.model_dump(mode="json", exclude_none=True)))
 

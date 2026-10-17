@@ -18,10 +18,10 @@ npm install @xyz17711/web-scraper
 
 | Method | Description |
 | --- | --- |
-| `extractMarkdown` | Fetches a URL and returns its main article content as clean Markdown ($0.007, x402) |
+| `extractMarkdown` | URL to Markdown: read any web page and get its main article content as clean Markdown for agents ($0.003, x402) |
 | `getTaskStatus` | Polls for the result of a task enqueued by a *_async tool |
-| `scrapeUrl` | Fetches an arbitrary URL through a proxy sourced from proxy-pool, never directly ($0.005, x402) |
-| `scrapeUrlAsync` | Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.005, x402) |
+| `scrapeUrl` | Scrape URL: fetch any web page through a proxy and get its status, content type and raw HTML ($0.002, x402) |
+| `scrapeUrlAsync` | [Deprecated - use web_scraper_scrape_url] Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.002, x402) |
 
 ## Quickstart
 

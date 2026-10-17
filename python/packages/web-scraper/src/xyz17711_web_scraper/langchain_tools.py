@@ -58,7 +58,7 @@ class WebScraperToolkit(BaseToolkit):
                 func=_extract_markdown,
                 coroutine=_aextract_markdown,
                 name="extract_markdown",
-                description="Fetches a URL and returns its main article content as clean Markdown ($0.007, x402)",
+                description="URL to Markdown: read any web page and get its main article content as clean Markdown for agents ($0.003, x402)",
                 args_schema=ExtractMarkdownRequest,
             ),
             StructuredTool.from_function(
@@ -72,14 +72,14 @@ class WebScraperToolkit(BaseToolkit):
                 func=_scrape_url,
                 coroutine=_ascrape_url,
                 name="scrape_url",
-                description="Fetches an arbitrary URL through a proxy sourced from proxy-pool, never directly ($0.005, x402)",
+                description="Scrape URL: fetch any web page through a proxy and get its status, content type and raw HTML ($0.002, x402)",
                 args_schema=ScrapeUrlRequest,
             ),
             StructuredTool.from_function(
                 func=_scrape_url_async,
                 coroutine=_ascrape_url_async,
                 name="scrape_url_async",
-                description="Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.005, x402)",
+                description="[Deprecated - use web_scraper_scrape_url] Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.002, x402)",
                 args_schema=ScrapeUrlAsyncRequest,
             ),
         ]

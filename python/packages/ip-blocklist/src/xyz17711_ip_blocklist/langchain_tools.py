@@ -34,6 +34,6 @@ class IpBlocklistToolkit(BaseToolkit):
                 func=_check_ip,
                 coroutine=_acheck_ip,
                 name="check_ip",
-                description="Checks whether an IPv4 address appears on any of several public IP blocklists ($0.002, x402)",
+                description="IP reputation check: is this IPv4 address on a public threat blocklist (Tor exit nodes, botnets, spam networks) ($0.010, x402)",
             ),
         ]

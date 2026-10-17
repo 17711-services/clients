@@ -1,4 +1,4 @@
-"""Typed HTTP client for 🚫 sanctions-check-service -- one method per operation, each with a sync form and an async (`a`-prefixed) form."""
+"""Typed HTTP client for sanctions-check-service -- one method per operation, each with a sync form and an async (`a`-prefixed) form."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class Client(_BaseClient):
-    """Typed client for 🚫 sanctions-check-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `ascreen_name` next to `screen_name`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
+    """Typed client for sanctions-check-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `ascreen_name` next to `screen_name`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
 
     def screen_name(self, request: ScreenNameRequest) -> ScreenNameResponse:
         """Sanctions check: OFAC list check and sanctions screening of a person or company name against OFAC SDN, EU and UN lists (AML KYC) ($0.01, x402)"""

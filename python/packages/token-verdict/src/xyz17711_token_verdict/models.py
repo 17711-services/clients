@@ -1,4 +1,4 @@
-"""Pydantic request/response models for 🪙 token-verdict-service."""
+"""Pydantic request/response models for token-verdict-service."""
 
 from __future__ import annotations
 

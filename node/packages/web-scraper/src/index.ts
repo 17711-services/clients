@@ -73,7 +73,7 @@ export interface ScrapeUrlAsyncRequest {
 
 /** Typed client for web-scraper, e.g. `client.extractMarkdown(...)`. */
 export class Client extends BaseClient {
-  /** Fetches a URL and returns its main article content as clean Markdown ($0.007, x402) */
+  /** URL to Markdown: read any web page and get its main article content as clean Markdown for agents ($0.003, x402) */
   async extractMarkdown(request: ExtractMarkdownRequest): Promise<ExtractMarkdownResponse> {
     return this.post<ExtractMarkdownResponse>("/v1/web-scraper/extract_markdown", request);
   }
@@ -83,12 +83,12 @@ export class Client extends BaseClient {
     return this.post<GetTaskStatusResponse>("/v1/web-scraper/get_task_status", request);
   }
 
-  /** Fetches an arbitrary URL through a proxy sourced from proxy-pool, never directly ($0.005, x402) */
+  /** Scrape URL: fetch any web page through a proxy and get its status, content type and raw HTML ($0.002, x402) */
   async scrapeUrl(request: ScrapeUrlRequest): Promise<ScrapeUrlResponse> {
     return this.post<ScrapeUrlResponse>("/v1/web-scraper/scrape_url", request);
   }
 
-  /** Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.005, x402) */
+  /** [Deprecated - use web_scraper_scrape_url] Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.002, x402) */
   async scrapeUrlAsync(request: ScrapeUrlAsyncRequest): Promise<AsyncTaskResponse> {
     return this.post<AsyncTaskResponse>("/v1/web-scraper/scrape_url_async", request);
   }

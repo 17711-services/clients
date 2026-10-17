@@ -7,6 +7,19 @@ Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-17
+
+First public release of the whole family (`@xyz17711/core` plus 16 service packages).
+
+### Added
+
+- Nine new generated clients: `@xyz17711/address-risk`, `company-check`, `company-profile`,
+  `contact-finder`, `domain-security`, `extract-correct`, `sanctions-check`, `token-verdict` and
+  `url-extract`.
+- Package metadata on every package: `license`, `repository`, `homepage`, `bugs`, `keywords`, an
+  `author` and a plain one-line description. Published archives now contain only `dist/`, the
+  README and `package.json` (`files`).
+
 ### Fixed
 
 - The core `Client` now echoes the 402 challenge's `extensions` (notably `bazaar`) back unchanged in

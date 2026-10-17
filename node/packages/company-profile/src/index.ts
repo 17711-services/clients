@@ -1,5 +1,5 @@
 /**
- * Typed HTTP client and request/response interfaces for 🏢 company-profile-service.
+ * Typed HTTP client and request/response interfaces for company-profile-service.
  */
 
 import { Client as BaseClient, type ClientOptions } from "@xyz17711/core";
@@ -73,7 +73,7 @@ export interface GetCompanyProfileRequest {
   max_age_seconds?: number | null;
 }
 
-/** Typed client for 🏢 company-profile-service, e.g. `client.getProfile(...)`. */
+/** Typed client for company-profile-service, e.g. `client.getProfile(...)`. */
 export class Client extends BaseClient {
   /** Company profile and enrichment from a domain or a name: offering, public contacts, social links and WHOIS domain data as valid JSON ($0.009, x402) */
   async getProfile(request: GetCompanyProfileRequest): Promise<GetCompanyProfileResponse> {

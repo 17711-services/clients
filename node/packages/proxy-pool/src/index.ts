@@ -30,7 +30,7 @@ export interface GetBestProxyResponse {
 
 /** Typed client for proxy-pool, e.g. `client.getBestProxy(...)`. */
 export class Client extends BaseClient {
-  /** Returns one of the fastest verified-alive proxies matching the filter, randomized to spread load ($0.001, x402) */
+  /** Free proxy API: get one fast, verified-alive proxy (HTTP, SOCKS) filtered by country, protocol and anonymity, for scraping ($0.010, x402) */
   async getBestProxy(params: { anonymity?: string | null; city?: string | null; country?: string | null; protocol?: string | null }): Promise<GetBestProxyResponse> {
     return this.get<GetBestProxyResponse>("/v1/proxy-pool/get_best_proxy", { anonymity: params.anonymity, city: params.city, country: params.country, protocol: params.protocol });
   }

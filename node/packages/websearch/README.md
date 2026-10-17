@@ -19,8 +19,8 @@ npm install @xyz17711/websearch
 | Method | Description |
 | --- | --- |
 | `getTaskStatus` | Polls for the result of a task enqueued by a *_async tool |
-| `searchWeb` | Searches the web, always through a free public proxy sourced from proxy-pool ($0.003, x402) |
-| `searchWebAsync` | Enqueues a websearch_search_web job and returns a task id immediately ($0.003, x402) |
+| `searchWeb` | Web search API for agents: search the web and get result titles, URLs and snippets as JSON ($0.005, x402) |
+| `searchWebAsync` | [Deprecated - use websearch_search_web] Enqueues a websearch_search_web job and returns a task id immediately ($0.005, x402) |
 
 ## Quickstart
 

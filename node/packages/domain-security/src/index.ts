@@ -1,5 +1,5 @@
 /**
- * Typed HTTP client and request/response interfaces for 🛡️ domain-security-service.
+ * Typed HTTP client and request/response interfaces for domain-security-service.
  */
 
 import { Client as BaseClient, type ClientOptions } from "@xyz17711/core";
@@ -104,7 +104,7 @@ export interface GetReportRequest {
   max_age_seconds?: number | null;
 }
 
-/** Typed client for 🛡️ domain-security-service, e.g. `client.getReport(...)`. */
+/** Typed client for domain-security-service, e.g. `client.getReport(...)`. */
 export class Client extends BaseClient {
   /** Domain security check: SSL certificate check, DMARC SPF check, DNSSEC, security headers and blocklist status with a score ($0.009, x402) */
   async getReport(request: GetReportRequest): Promise<GetReportResponse> {

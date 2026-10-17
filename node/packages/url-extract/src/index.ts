@@ -1,5 +1,5 @@
 /**
- * Typed HTTP client and request/response interfaces for 🧩 url-extract-service.
+ * Typed HTTP client and request/response interfaces for url-extract-service.
  */
 
 import { Client as BaseClient, type ClientOptions } from "@xyz17711/core";
@@ -101,7 +101,7 @@ export interface GetStructuredDataRequest {
   url: string;
 }
 
-/** Typed client for 🧩 url-extract-service, e.g. `client.getCompanyProfile(...)`. */
+/** Typed client for url-extract-service, e.g. `client.getCompanyProfile(...)`. */
 export class Client extends BaseClient {
   /** [Deprecated - use company_profile_get_profile] Company profile from a domain or a name as valid JSON ($0.009, x402) */
   async getCompanyProfile(request: GetCompanyProfileRequest): Promise<GetCompanyProfileResponse> {

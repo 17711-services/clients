@@ -34,6 +34,6 @@ class ProxyPoolToolkit(BaseToolkit):
                 func=_get_best_proxy,
                 coroutine=_aget_best_proxy,
                 name="get_best_proxy",
-                description="Returns one of the fastest verified-alive proxies matching the filter, randomized to spread load ($0.001, x402)",
+                description="Free proxy API: get one fast, verified-alive proxy (HTTP, SOCKS) filtered by country, protocol and anonymity, for scraping ($0.010, x402)",
             ),
         ]

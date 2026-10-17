@@ -1,4 +1,4 @@
-"""Typed HTTP client for 🪙 token-verdict-service -- one method per operation, each with a sync form and an async (`a`-prefixed) form."""
+"""Typed HTTP client for token-verdict-service -- one method per operation, each with a sync form and an async (`a`-prefixed) form."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class Client(_BaseClient):
-    """Typed client for 🪙 token-verdict-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `aget_verdict` next to `get_verdict`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
+    """Typed client for token-verdict-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `aget_verdict` next to `get_verdict`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
 
     def get_verdict(self, request: GetVerdictRequest) -> GetVerdictResponse:
         """Token verdict and security check: is this token safe? Honeypot, rug pull and scam detection with taxes, liquidity and admin powers ($0.01, x402)"""

@@ -34,7 +34,7 @@ class PingToolkit(BaseToolkit):
                 func=_ping,
                 coroutine=_aping,
                 name="ping",
-                description="Echoes back the input plus this process's pid ($0.001, x402)",
+                description="x402 ping: the cheapest end-to-end payment test for an x402 client or agent wallet, returns an echo and the server pid ($0.002, x402)",
                 args_schema=PingRequest,
             ),
         ]

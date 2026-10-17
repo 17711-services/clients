@@ -15,12 +15,12 @@ class Client(_BaseClient):
     """Typed client for emoji-match-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `asuggest_emojis` next to `suggest_emojis`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
 
     def suggest_emojis(self, request: SuggestEmojisRequest) -> SuggestEmojisResponse:
-        """Suggests 1-5 emoji matching a text's lexicon, English/French best-supported ($0.001, x402)"""
+        """Emoji suggestion API: text in 18 languages in, the 1 to 5 best matching emoji out, deterministic and fast ($0.002, x402)"""
         logger.debug("suggest_emojis: calling %s", "/v1/emoji-match/suggest_emojis")
         return SuggestEmojisResponse.model_validate(self._post("/v1/emoji-match/suggest_emojis", request.model_dump(mode="json", exclude_none=True)))
 
     async def asuggest_emojis(self, request: SuggestEmojisRequest) -> SuggestEmojisResponse:
-        """Suggests 1-5 emoji matching a text's lexicon, English/French best-supported ($0.001, x402) (async)"""
+        """Emoji suggestion API: text in 18 languages in, the 1 to 5 best matching emoji out, deterministic and fast ($0.002, x402) (async)"""
         logger.debug("asuggest_emojis: calling %s", "/v1/emoji-match/suggest_emojis")
         return SuggestEmojisResponse.model_validate(await self._apost("/v1/emoji-match/suggest_emojis", request.model_dump(mode="json", exclude_none=True)))
 

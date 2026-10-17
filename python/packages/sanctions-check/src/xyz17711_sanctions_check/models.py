@@ -1,4 +1,4 @@
-"""Pydantic request/response models for 🚫 sanctions-check-service."""
+"""Pydantic request/response models for sanctions-check-service."""
 
 from __future__ import annotations
 

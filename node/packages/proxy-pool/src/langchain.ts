@@ -19,7 +19,7 @@ export class ProxyPoolToolkit {
         async (input) => this.client.getBestProxy(input),
         {
           name: "getBestProxy",
-          description: "Returns one of the fastest verified-alive proxies matching the filter, randomized to spread load ($0.001, x402)",
+          description: "Free proxy API: get one fast, verified-alive proxy (HTTP, SOCKS) filtered by country, protocol and anonymity, for scraping ($0.010, x402)",
           schema: z.object({ anonymity: z.string().nullable().optional(), city: z.string().nullable().optional(), country: z.string().nullable().optional(), protocol: z.string().nullable().optional() }),
         },
       ),

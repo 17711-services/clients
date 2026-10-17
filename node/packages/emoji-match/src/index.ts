@@ -18,7 +18,7 @@ export interface SuggestEmojisRequest {
 
 /** Typed client for emoji-match-service, e.g. `client.suggestEmojis(...)`. */
 export class Client extends BaseClient {
-  /** Suggests 1-5 emoji matching a text's lexicon, English/French best-supported ($0.001, x402) */
+  /** Emoji suggestion API: text in 18 languages in, the 1 to 5 best matching emoji out, deterministic and fast ($0.002, x402) */
   async suggestEmojis(request: SuggestEmojisRequest): Promise<SuggestEmojisResponse> {
     return this.post<SuggestEmojisResponse>("/v1/emoji-match/suggest_emojis", request);
   }

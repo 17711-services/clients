@@ -1,4 +1,4 @@
-"""Pydantic request/response models for 📇 contact-finder-service."""
+"""Pydantic request/response models for contact-finder-service."""
 
 from __future__ import annotations
 

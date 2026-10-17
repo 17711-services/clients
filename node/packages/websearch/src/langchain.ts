@@ -27,7 +27,7 @@ export class WebsearchToolkit {
         async (input) => this.client.searchWeb(input),
         {
           name: "searchWeb",
-          description: "Searches the web, always through a free public proxy sourced from proxy-pool ($0.003, x402)",
+          description: "Web search API for agents: search the web and get result titles, URLs and snippets as JSON ($0.005, x402)",
           schema: z.object({ query: z.string() }),
         },
       ),
@@ -35,7 +35,7 @@ export class WebsearchToolkit {
         async (input) => this.client.searchWebAsync(input),
         {
           name: "searchWebAsync",
-          description: "Enqueues a websearch_search_web job and returns a task id immediately ($0.003, x402)",
+          description: "[Deprecated - use websearch_search_web] Enqueues a websearch_search_web job and returns a task id immediately ($0.005, x402)",
           schema: z.object({ callback_url: z.string().nullable().optional(), query: z.string() }),
         },
       ),

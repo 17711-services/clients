@@ -1,5 +1,5 @@
 /**
- * Typed HTTP client and request/response interfaces for 📇 contact-finder-service.
+ * Typed HTTP client and request/response interfaces for contact-finder-service.
  */
 
 import { Client as BaseClient, type ClientOptions } from "@xyz17711/core";
@@ -74,7 +74,7 @@ export interface GetContactsRequest {
   max_age_seconds?: number | null;
 }
 
-/** Typed client for 📇 contact-finder-service, e.g. `client.getContacts(...)`. */
+/** Typed client for contact-finder-service, e.g. `client.getContacts(...)`. */
 export class Client extends BaseClient {
   /** Contact finder: public business emails, phone numbers, contact forms and support pages of a domain, with role and source ($0.009, x402) */
   async getContacts(request: GetContactsRequest): Promise<GetContactsResponse> {

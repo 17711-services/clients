@@ -19,7 +19,7 @@ export class WebScraperToolkit {
         async (input) => this.client.extractMarkdown(input),
         {
           name: "extractMarkdown",
-          description: "Fetches a URL and returns its main article content as clean Markdown ($0.007, x402)",
+          description: "URL to Markdown: read any web page and get its main article content as clean Markdown for agents ($0.003, x402)",
           schema: z.object({ url: z.string() }),
         },
       ),
@@ -35,7 +35,7 @@ export class WebScraperToolkit {
         async (input) => this.client.scrapeUrl(input),
         {
           name: "scrapeUrl",
-          description: "Fetches an arbitrary URL through a proxy sourced from proxy-pool, never directly ($0.005, x402)",
+          description: "Scrape URL: fetch any web page through a proxy and get its status, content type and raw HTML ($0.002, x402)",
           schema: z.object({ url: z.string() }),
         },
       ),
@@ -43,7 +43,7 @@ export class WebScraperToolkit {
         async (input) => this.client.scrapeUrlAsync(input),
         {
           name: "scrapeUrlAsync",
-          description: "Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.005, x402)",
+          description: "[Deprecated - use web_scraper_scrape_url] Enqueues a web_scraper_scrape_url job and returns a task id immediately ($0.002, x402)",
           schema: z.object({ callback_url: z.string().nullable().optional(), url: z.string() }),
         },
       ),

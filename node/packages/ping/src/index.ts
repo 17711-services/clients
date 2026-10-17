@@ -22,7 +22,7 @@ export interface PingRequest {
 
 /** Typed client for ping-service, e.g. `client.ping(...)`. */
 export class Client extends BaseClient {
-  /** Echoes back the input plus this process's pid ($0.001, x402) */
+  /** x402 ping: the cheapest end-to-end payment test for an x402 client or agent wallet, returns an echo and the server pid ($0.002, x402) */
   async ping(request: PingRequest): Promise<PingResult> {
     return this.post<PingResult>("/v1/ping", request);
   }

@@ -1,4 +1,4 @@
-"""Typed HTTP client for 📇 contact-finder-service -- one method per operation, each with a sync form and an async (`a`-prefixed) form."""
+"""Typed HTTP client for contact-finder-service -- one method per operation, each with a sync form and an async (`a`-prefixed) form."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class Client(_BaseClient):
-    """Typed client for 📇 contact-finder-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `aget_contacts` next to `get_contacts`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
+    """Typed client for contact-finder-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `aget_contacts` next to `get_contacts`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
 
     def get_contacts(self, request: GetContactsRequest) -> GetContactsResponse:
         """Contact finder: public business emails, phone numbers, contact forms and support pages of a domain, with role and source ($0.009, x402)"""

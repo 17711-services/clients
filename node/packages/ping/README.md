@@ -18,7 +18,7 @@ npm install @xyz17711/ping
 
 | Method | Description |
 | --- | --- |
-| `ping` | Echoes back the input plus this process's pid ($0.001, x402) |
+| `ping` | x402 ping: the cheapest end-to-end payment test for an x402 client or agent wallet, returns an echo and the server pid ($0.002, x402) |
 
 ## Quickstart
 

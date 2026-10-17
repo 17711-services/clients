@@ -22,7 +22,7 @@ pip install "xyz17711[proxy-pool]"
 
 | Method | Description |
 | --- | --- |
-| `get_best_proxy` | Returns one of the fastest verified-alive proxies matching the filter, randomized to spread load ($0.001, x402) |
+| `get_best_proxy` | Free proxy API: get one fast, verified-alive proxy (HTTP, SOCKS) filtered by country, protocol and anonymity, for scraping ($0.010, x402) |
 
 Every method above has both a sync form and an async form (the `a`-prefixed sibling, e.g.
 `aget_best_proxy` next to `get_best_proxy`), sharing one underlying client.

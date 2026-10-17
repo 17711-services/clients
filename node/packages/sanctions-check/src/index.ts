@@ -1,5 +1,5 @@
 /**
- * Typed HTTP client and request/response interfaces for 🚫 sanctions-check-service.
+ * Typed HTTP client and request/response interfaces for sanctions-check-service.
  */
 
 import { Client as BaseClient, type ClientOptions } from "@xyz17711/core";
@@ -69,7 +69,7 @@ export interface ScreenNameRequest {
   type?: string | null;
 }
 
-/** Typed client for 🚫 sanctions-check-service, e.g. `client.screenName(...)`. */
+/** Typed client for sanctions-check-service, e.g. `client.screenName(...)`. */
 export class Client extends BaseClient {
   /** Sanctions check: OFAC list check and sanctions screening of a person or company name against OFAC SDN, EU and UN lists (AML KYC) ($0.01, x402) */
   async screenName(request: ScreenNameRequest): Promise<ScreenNameResponse> {

@@ -1,7 +1,35 @@
 {
   "name": "@xyz17711/ping",
-  "version": "0.1.0",
-  "description": "Generated typed client for the ping-service 17711.xyz microservice.",
+  "version": "0.1.1",
+  "description": "Typed TypeScript client for the 17711.xyz Ping API: pay-per-call, settled in USDC via x402.",
+  "license": "MIT",
+  "author": "17711 Services",
+  "homepage": "https://api.17711.xyz",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/17711-services/clients.git",
+    "directory": "node/packages/ping"
+  },
+  "bugs": {
+    "url": "https://github.com/17711-services/clients/issues"
+  },
+  "keywords": [
+    "x402",
+    "usdc",
+    "api-client",
+    "pay-per-call",
+    "ai-agents",
+    "mcp",
+    "langchain",
+    "ping"
+  ],
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -22,7 +22,7 @@ pip install "xyz17711[emoji-match]"
 
 | Method | Description |
 | --- | --- |
-| `suggest_emojis` | Suggests 1-5 emoji matching a text's lexicon, English/French best-supported ($0.001, x402) |
+| `suggest_emojis` | Emoji suggestion API: text in 18 languages in, the 1 to 5 best matching emoji out, deterministic and fast ($0.002, x402) |
 
 Every method above has both a sync form and an async form (the `a`-prefixed sibling, e.g.
 `asuggest_emojis` next to `suggest_emojis`), sharing one underlying client.

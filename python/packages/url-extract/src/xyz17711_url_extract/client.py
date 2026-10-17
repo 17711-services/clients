@@ -1,4 +1,4 @@
-"""Typed HTTP client for 🧩 url-extract-service -- one method per operation, each with a sync form and an async (`a`-prefixed) form."""
+"""Typed HTTP client for url-extract-service -- one method per operation, each with a sync form and an async (`a`-prefixed) form."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class Client(_BaseClient):
-    """Typed client for 🧩 url-extract-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `aget_company_profile` next to `get_company_profile`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
+    """Typed client for url-extract-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `aget_company_profile` next to `get_company_profile`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
 
     def get_company_profile(self, request: GetCompanyProfileRequest) -> GetCompanyProfileResponse:
         """[Deprecated - use company_profile_get_profile] Company profile from a domain or a name as valid JSON ($0.009, x402)"""
