@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+from typing import Optional
 
 from xyz17711_core import Client as _BaseClient
 
@@ -10,9 +11,31 @@ from .models import *  # noqa: F401,F403 -- re-exported for callers building req
 
 logger = logging.getLogger(__name__)
 
+DEFAULT_BASE_URL = "https://api.17711.xyz/registry/address-risk-service"
+"""Production base URL of this service; pass another `base_url` to self-host or test."""
+
 
 class Client(_BaseClient):
     """Typed client for address-risk-service. Every method has a sync form and an async form (the `a`-prefixed sibling, e.g. `acheck_address` next to `check_address`) sharing the same underlying connection/wallet -- pick whichever fits your own code."""
+
+    def __init__(
+        self,
+        base_url: str = DEFAULT_BASE_URL,
+        *,
+        timeout: float = 30.0,
+        x402_private_key: Optional[str] = None,
+        x402_expected_network: Optional[str] = None,
+        x402_max_payment_usdc: Optional[float] = None,
+        x402_max_total_spend_usdc: Optional[float] = None,
+    ):
+        super().__init__(
+            base_url,
+            timeout=timeout,
+            x402_private_key=x402_private_key,
+            x402_expected_network=x402_expected_network,
+            x402_max_payment_usdc=x402_max_payment_usdc,
+            x402_max_total_spend_usdc=x402_max_total_spend_usdc,
+        )
 
     def check_address(self, request: CheckAddressRequest) -> CheckAddressResponse:
         """Wallet address risk check: sanctioned address and phishing check for a crypto wallet or contract before you send funds, with theft, scam, mixer and blacklist flags ($0.005, x402)"""

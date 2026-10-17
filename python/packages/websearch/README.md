@@ -34,9 +34,12 @@ Every method above has both a sync form and an async form (the `a`-prefixed sibl
 ```python
 from xyz17711_websearch import Client
 
-client = Client("https://api.17711.xyz/registry/websearch")
+client = Client()  # talks to https://api.17711.xyz/registry/websearch by default
 # see the Methods table above for every available call and its request/response model
 ```
+
+Pass another base URL (self-hosted instance, test server) as the first argument:
+`Client("https://my-host.example/registry/websearch")`.
 
 ## LangChain
 
@@ -48,7 +51,7 @@ pip install "xyz17711-websearch[langchain]"
 from xyz17711_websearch import Client
 from xyz17711_websearch.langchain_tools import WebsearchToolkit
 
-client = Client("https://api.17711.xyz/registry/websearch")
+client = Client()
 tools = WebsearchToolkit(client=client).get_tools()
 ```
 

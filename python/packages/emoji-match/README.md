@@ -32,9 +32,12 @@ Every method above has both a sync form and an async form (the `a`-prefixed sibl
 ```python
 from xyz17711_emoji_match import Client
 
-client = Client("https://api.17711.xyz/registry/emoji-match-service")
+client = Client()  # talks to https://api.17711.xyz/registry/emoji-match-service by default
 # see the Methods table above for every available call and its request/response model
 ```
+
+Pass another base URL (self-hosted instance, test server) as the first argument:
+`Client("https://my-host.example/registry/emoji-match-service")`.
 
 ## LangChain
 
@@ -46,7 +49,7 @@ pip install "xyz17711-emoji-match[langchain]"
 from xyz17711_emoji_match import Client
 from xyz17711_emoji_match.langchain_tools import EmojiMatchToolkit
 
-client = Client("https://api.17711.xyz/registry/emoji-match-service")
+client = Client()
 tools = EmojiMatchToolkit(client=client).get_tools()
 ```
 

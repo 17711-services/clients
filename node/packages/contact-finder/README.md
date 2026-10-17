@@ -25,9 +25,12 @@ npm install @xyz17711/contact-finder
 ```typescript
 import { Client } from "@xyz17711/contact-finder";
 
-const client = new Client("https://api.17711.xyz/registry/contact-finder-service");
+const client = new Client(); // talks to https://api.17711.xyz/registry/contact-finder-service by default
 // see the Methods table above for every available call and its request/response type
 ```
+
+Pass another base URL (self-hosted instance, test server) as the first argument:
+`new Client("https://my-host.example/registry/contact-finder-service")`.
 
 ## Paying past the free quota
 
@@ -38,7 +41,7 @@ network, and payee address attached:
 ```typescript
 import { Client, PaymentRequiredError } from "@xyz17711/contact-finder";
 
-const client = new Client("https://api.17711.xyz/registry/contact-finder-service");
+const client = new Client();
 try {
   await client.getContacts(/* ... */);
 } catch (e) {
@@ -54,7 +57,7 @@ own environment/secrets manager, never a literal string in source code:
 ```typescript
 import { Client } from "@xyz17711/contact-finder";
 
-const client = new Client("https://api.17711.xyz/registry/contact-finder-service", {
+const client = new Client({
   x402PrivateKey: process.env.X402_PRIVATE_KEY,
   x402ExpectedNetwork: "eip155:8453", // Base mainnet; use eip155:84532 for Base Sepolia testnet
   x402MaxPaymentUsdc: 0.01,           // refuse any single call above this
@@ -73,7 +76,7 @@ with that same key in this process.
 import { Client } from "@xyz17711/contact-finder";
 import { ContactFinderToolkit } from "@xyz17711/contact-finder/langchain";
 
-const client = new Client("https://api.17711.xyz/registry/contact-finder-service", { /* ...wallet options... */ });
+const client = new Client({ /* ...wallet options... */ });
 const tools = new ContactFinderToolkit(client).getTools();
 ```
 

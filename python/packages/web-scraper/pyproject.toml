@@ -1,6 +1,6 @@
 [project]
 name = "xyz17711-web-scraper"
-version = "0.1.1"
+version = "0.1.2"
 description = "Typed Python client for the 17711.xyz Web Scraper API: pay-per-call, settled in USDC via x402."
 readme = "README.md"
 license = { text = "MIT" }

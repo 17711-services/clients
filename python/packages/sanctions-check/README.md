@@ -32,9 +32,12 @@ Every method above has both a sync form and an async form (the `a`-prefixed sibl
 ```python
 from xyz17711_sanctions_check import Client
 
-client = Client("https://api.17711.xyz/registry/sanctions-check-service")
+client = Client()  # talks to https://api.17711.xyz/registry/sanctions-check-service by default
 # see the Methods table above for every available call and its request/response model
 ```
+
+Pass another base URL (self-hosted instance, test server) as the first argument:
+`Client("https://my-host.example/registry/sanctions-check-service")`.
 
 ## LangChain
 
@@ -46,7 +49,7 @@ pip install "xyz17711-sanctions-check[langchain]"
 from xyz17711_sanctions_check import Client
 from xyz17711_sanctions_check.langchain_tools import SanctionsCheckToolkit
 
-client = Client("https://api.17711.xyz/registry/sanctions-check-service")
+client = Client()
 tools = SanctionsCheckToolkit(client=client).get_tools()
 ```
 

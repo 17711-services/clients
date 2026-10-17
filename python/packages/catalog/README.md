@@ -34,9 +34,12 @@ Every method above has both a sync form and an async form (the `a`-prefixed sibl
 ```python
 from xyz17711_catalog import Client
 
-client = Client("https://api.17711.xyz/registry/catalog")
+client = Client()  # talks to https://api.17711.xyz/registry/catalog by default
 # see the Methods table above for every available call and its request/response model
 ```
+
+Pass another base URL (self-hosted instance, test server) as the first argument:
+`Client("https://my-host.example/registry/catalog")`.
 
 ## LangChain
 
@@ -48,7 +51,7 @@ pip install "xyz17711-catalog[langchain]"
 from xyz17711_catalog import Client
 from xyz17711_catalog.langchain_tools import CatalogToolkit
 
-client = Client("https://api.17711.xyz/registry/catalog")
+client = Client()
 tools = CatalogToolkit(client=client).get_tools()
 ```
 

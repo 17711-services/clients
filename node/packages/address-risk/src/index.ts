@@ -43,8 +43,26 @@ export interface CheckAddressRequest {
   max_age_seconds?: number | null;
 }
 
+/** Production base URL of this service; pass another to self-host or test. */
+export const DEFAULT_BASE_URL = "https://api.17711.xyz/registry/address-risk-service";
+
 /** Typed client for address-risk-service, e.g. `client.checkAddress(...)`. */
 export class Client extends BaseClient {
+  /**
+   * `new Client()` talks to the production service. Pass a base URL to target another
+   * instance, and/or wallet options (`new Client({ x402PrivateKey, ... })`) to pay past the
+   * free quota automatically.
+   */
+  constructor(options?: ClientOptions);
+  constructor(baseUrl?: string, options?: ClientOptions);
+  constructor(baseUrlOrOptions?: string | ClientOptions, options: ClientOptions = {}) {
+    const [url, opts]: [string, ClientOptions] =
+      typeof baseUrlOrOptions === "object"
+        ? [DEFAULT_BASE_URL, baseUrlOrOptions]
+        : [baseUrlOrOptions ?? DEFAULT_BASE_URL, options];
+    super(url, opts);
+  }
+
   /** Wallet address risk check: sanctioned address and phishing check for a crypto wallet or contract before you send funds, with theft, scam, mixer and blacklist flags ($0.005, x402) */
   async checkAddress(request: CheckAddressRequest): Promise<CheckAddressResponse> {
     return this.post<CheckAddressResponse>("/v1/address-risk/check_address", request);

@@ -1,6 +1,6 @@
 {
   "name": "@xyz17711/websearch",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Typed TypeScript client for the 17711.xyz Websearch API: pay-per-call, settled in USDC via x402.",
   "license": "MIT",
   "author": "17711 Services",

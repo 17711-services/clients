@@ -6,6 +6,17 @@ package). Format loosely follows [Keep a Changelog](https://keepachangelog.com/)
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-10-17
+
+`xyz17711-ping`, `xyz17711-proxy-pool` and `xyz17711-web-scraper` move to 0.1.2; the other service
+clients are published for the first time with this behaviour. The core `xyz17711` is unchanged.
+
+### Added
+
+- Every service client now defaults to its own production URL: `Client()` works with no argument.
+  Pass a base URL as the first argument to target another instance (self-hosted, tests). Each
+  module also exports `DEFAULT_BASE_URL`.
+
 ## [0.1.1] - 2026-10-17
 
 `xyz17711`, `xyz17711-ping`, `xyz17711-proxy-pool` and `xyz17711-web-scraper` move to 0.1.1; every

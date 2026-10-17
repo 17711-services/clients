@@ -73,8 +73,26 @@ export interface GetCompanyProfileRequest {
   max_age_seconds?: number | null;
 }
 
+/** Production base URL of this service; pass another to self-host or test. */
+export const DEFAULT_BASE_URL = "https://api.17711.xyz/registry/company-profile-service";
+
 /** Typed client for company-profile-service, e.g. `client.getProfile(...)`. */
 export class Client extends BaseClient {
+  /**
+   * `new Client()` talks to the production service. Pass a base URL to target another
+   * instance, and/or wallet options (`new Client({ x402PrivateKey, ... })`) to pay past the
+   * free quota automatically.
+   */
+  constructor(options?: ClientOptions);
+  constructor(baseUrl?: string, options?: ClientOptions);
+  constructor(baseUrlOrOptions?: string | ClientOptions, options: ClientOptions = {}) {
+    const [url, opts]: [string, ClientOptions] =
+      typeof baseUrlOrOptions === "object"
+        ? [DEFAULT_BASE_URL, baseUrlOrOptions]
+        : [baseUrlOrOptions ?? DEFAULT_BASE_URL, options];
+    super(url, opts);
+  }
+
   /** Company profile and enrichment from a domain or a name: offering, public contacts, social links and WHOIS domain data as valid JSON ($0.009, x402) */
   async getProfile(request: GetCompanyProfileRequest): Promise<GetCompanyProfileResponse> {
     return this.post<GetCompanyProfileResponse>("/v1/company-profile/get_profile", request);

@@ -46,8 +46,26 @@ export interface SearchWebAsyncRequest {
   query: string;
 }
 
+/** Production base URL of this service; pass another to self-host or test. */
+export const DEFAULT_BASE_URL = "https://api.17711.xyz/registry/websearch";
+
 /** Typed client for websearch, e.g. `client.getTaskStatus(...)`. */
 export class Client extends BaseClient {
+  /**
+   * `new Client()` talks to the production service. Pass a base URL to target another
+   * instance, and/or wallet options (`new Client({ x402PrivateKey, ... })`) to pay past the
+   * free quota automatically.
+   */
+  constructor(options?: ClientOptions);
+  constructor(baseUrl?: string, options?: ClientOptions);
+  constructor(baseUrlOrOptions?: string | ClientOptions, options: ClientOptions = {}) {
+    const [url, opts]: [string, ClientOptions] =
+      typeof baseUrlOrOptions === "object"
+        ? [DEFAULT_BASE_URL, baseUrlOrOptions]
+        : [baseUrlOrOptions ?? DEFAULT_BASE_URL, options];
+    super(url, opts);
+  }
+
   /** Polls for the result of a task enqueued by a *_async tool */
   async getTaskStatus(request: GetTaskStatusRequest): Promise<GetTaskStatusResponse> {
     return this.post<GetTaskStatusResponse>("/v1/websearch/get_task_status", request);

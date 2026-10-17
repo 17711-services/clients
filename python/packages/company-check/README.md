@@ -32,9 +32,12 @@ Every method above has both a sync form and an async form (the `a`-prefixed sibl
 ```python
 from xyz17711_company_check import Client
 
-client = Client("https://api.17711.xyz/registry/company-check-service")
+client = Client()  # talks to https://api.17711.xyz/registry/company-check-service by default
 # see the Methods table above for every available call and its request/response model
 ```
+
+Pass another base URL (self-hosted instance, test server) as the first argument:
+`Client("https://my-host.example/registry/company-check-service")`.
 
 ## LangChain
 
@@ -46,7 +49,7 @@ pip install "xyz17711-company-check[langchain]"
 from xyz17711_company_check import Client
 from xyz17711_company_check.langchain_tools import CompanyCheckToolkit
 
-client = Client("https://api.17711.xyz/registry/company-check-service")
+client = Client()
 tools = CompanyCheckToolkit(client=client).get_tools()
 ```
 

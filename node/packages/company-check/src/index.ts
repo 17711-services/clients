@@ -143,8 +143,26 @@ export interface VerifyCompanyRequest {
   vat_number?: string | null;
 }
 
+/** Production base URL of this service; pass another to self-host or test. */
+export const DEFAULT_BASE_URL = "https://api.17711.xyz/registry/company-check-service";
+
 /** Typed client for company-check-service, e.g. `client.verifyCompany(...)`. */
 export class Client extends BaseClient {
+  /**
+   * `new Client()` talks to the production service. Pass a base URL to target another
+   * instance, and/or wallet options (`new Client({ x402PrivateKey, ... })`) to pay past the
+   * free quota automatically.
+   */
+  constructor(options?: ClientOptions);
+  constructor(baseUrl?: string, options?: ClientOptions);
+  constructor(baseUrlOrOptions?: string | ClientOptions, options: ClientOptions = {}) {
+    const [url, opts]: [string, ClientOptions] =
+      typeof baseUrlOrOptions === "object"
+        ? [DEFAULT_BASE_URL, baseUrlOrOptions]
+        : [baseUrlOrOptions ?? DEFAULT_BASE_URL, options];
+    super(url, opts);
+  }
+
   /** Company check (KYB) and business verification: VAT validation (VIES), LEI lookup, registry status and company directors ($0.009, x402) */
   async verifyCompany(request: VerifyCompanyRequest): Promise<VerifyCompanyResponse> {
     return this.post<VerifyCompanyResponse>("/v1/company-check/verify_company", request);

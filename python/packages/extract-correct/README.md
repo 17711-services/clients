@@ -32,9 +32,12 @@ Every method above has both a sync form and an async form (the `a`-prefixed sibl
 ```python
 from xyz17711_extract_correct import Client
 
-client = Client("https://api.17711.xyz/registry/extract-correct-service")
+client = Client()  # talks to https://api.17711.xyz/registry/extract-correct-service by default
 # see the Methods table above for every available call and its request/response model
 ```
+
+Pass another base URL (self-hosted instance, test server) as the first argument:
+`Client("https://my-host.example/registry/extract-correct-service")`.
 
 ## LangChain
 
@@ -46,7 +49,7 @@ pip install "xyz17711-extract-correct[langchain]"
 from xyz17711_extract_correct import Client
 from xyz17711_extract_correct.langchain_tools import ExtractCorrectToolkit
 
-client = Client("https://api.17711.xyz/registry/extract-correct-service")
+client = Client()
 tools = ExtractCorrectToolkit(client=client).get_tools()
 ```
 

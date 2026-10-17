@@ -33,9 +33,12 @@ Every method above has both a sync form and an async form (the `a`-prefixed sibl
 ```python
 from xyz17711_url_extract import Client
 
-client = Client("https://api.17711.xyz/registry/url-extract-service")
+client = Client()  # talks to https://api.17711.xyz/registry/url-extract-service by default
 # see the Methods table above for every available call and its request/response model
 ```
+
+Pass another base URL (self-hosted instance, test server) as the first argument:
+`Client("https://my-host.example/registry/url-extract-service")`.
 
 ## LangChain
 
@@ -47,7 +50,7 @@ pip install "xyz17711-url-extract[langchain]"
 from xyz17711_url_extract import Client
 from xyz17711_url_extract.langchain_tools import UrlExtractToolkit
 
-client = Client("https://api.17711.xyz/registry/url-extract-service")
+client = Client()
 tools = UrlExtractToolkit(client=client).get_tools()
 ```
 

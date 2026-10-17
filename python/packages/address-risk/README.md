@@ -32,9 +32,12 @@ Every method above has both a sync form and an async form (the `a`-prefixed sibl
 ```python
 from xyz17711_address_risk import Client
 
-client = Client("https://api.17711.xyz/registry/address-risk-service")
+client = Client()  # talks to https://api.17711.xyz/registry/address-risk-service by default
 # see the Methods table above for every available call and its request/response model
 ```
+
+Pass another base URL (self-hosted instance, test server) as the first argument:
+`Client("https://my-host.example/registry/address-risk-service")`.
 
 ## LangChain
 
@@ -46,7 +49,7 @@ pip install "xyz17711-address-risk[langchain]"
 from xyz17711_address_risk import Client
 from xyz17711_address_risk.langchain_tools import AddressRiskToolkit
 
-client = Client("https://api.17711.xyz/registry/address-risk-service")
+client = Client()
 tools = AddressRiskToolkit(client=client).get_tools()
 ```
 

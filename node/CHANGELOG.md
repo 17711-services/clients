@@ -7,6 +7,17 @@ Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-10-17
+
+All service packages move to 0.1.2; `@xyz17711/core` is unchanged (0.1.1).
+
+### Added
+
+- Every service client now defaults to its own production URL: `new Client()` works with no
+  argument. Pass a base URL as the first argument to target another instance (self-hosted, tests),
+  and/or wallet options alone (`new Client({ x402PrivateKey, ... })`). Each package also exports
+  `DEFAULT_BASE_URL`.
+
 ## [0.1.1] - 2026-10-17
 
 First public release of the whole family (`@xyz17711/core` plus 16 service packages).

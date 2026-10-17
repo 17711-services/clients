@@ -32,9 +32,12 @@ Every method above has both a sync form and an async form (the `a`-prefixed sibl
 ```python
 from xyz17711_contact_finder import Client
 
-client = Client("https://api.17711.xyz/registry/contact-finder-service")
+client = Client()  # talks to https://api.17711.xyz/registry/contact-finder-service by default
 # see the Methods table above for every available call and its request/response model
 ```
+
+Pass another base URL (self-hosted instance, test server) as the first argument:
+`Client("https://my-host.example/registry/contact-finder-service")`.
 
 ## LangChain
 
@@ -46,7 +49,7 @@ pip install "xyz17711-contact-finder[langchain]"
 from xyz17711_contact_finder import Client
 from xyz17711_contact_finder.langchain_tools import ContactFinderToolkit
 
-client = Client("https://api.17711.xyz/registry/contact-finder-service")
+client = Client()
 tools = ContactFinderToolkit(client=client).get_tools()
 ```
 

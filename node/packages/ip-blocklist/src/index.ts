@@ -19,8 +19,26 @@ export interface CheckIpResponse {
   matches: BlocklistMatch[];
 }
 
+/** Production base URL of this service; pass another to self-host or test. */
+export const DEFAULT_BASE_URL = "https://api.17711.xyz/registry/ip-blocklist";
+
 /** Typed client for ip-blocklist, e.g. `client.checkIp(...)`. */
 export class Client extends BaseClient {
+  /**
+   * `new Client()` talks to the production service. Pass a base URL to target another
+   * instance, and/or wallet options (`new Client({ x402PrivateKey, ... })`) to pay past the
+   * free quota automatically.
+   */
+  constructor(options?: ClientOptions);
+  constructor(baseUrl?: string, options?: ClientOptions);
+  constructor(baseUrlOrOptions?: string | ClientOptions, options: ClientOptions = {}) {
+    const [url, opts]: [string, ClientOptions] =
+      typeof baseUrlOrOptions === "object"
+        ? [DEFAULT_BASE_URL, baseUrlOrOptions]
+        : [baseUrlOrOptions ?? DEFAULT_BASE_URL, options];
+    super(url, opts);
+  }
+
   /** IP reputation check: is this IPv4 address on a public threat blocklist (Tor exit nodes, botnets, spam networks) ($0.010, x402) */
   async checkIp(params: { ip: string }): Promise<CheckIpResponse> {
     return this.get<CheckIpResponse>("/v1/ip-blocklist/check", { ip: params.ip });
