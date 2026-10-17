@@ -1,0 +1,87 @@
+# @xyz17711/sanctions-check
+
+[![Publish](https://github.com/17711-services/clients/actions/workflows/publish-node.yml/badge.svg)](https://github.com/17711-services/clients/actions/workflows/publish-node.yml)
+[![npm](https://img.shields.io/npm/v/@xyz17711/sanctions-check)](https://www.npmjs.com/package/@xyz17711/sanctions-check)
+[![License](https://img.shields.io/npm/l/@xyz17711/sanctions-check)](https://github.com/17711-services/clients/blob/main/LICENSE)
+
+Typed TypeScript client for **🚫 sanctions-check-service**, part of the
+[17711.xyz](https://api.17711.xyz) microservice fleet -- pay-per-call APIs settled in USDC via
+[x402](https://x402.org), listed on [x402scan](https://www.x402scan.com/server/f1c7b972-3405-4b75-8b4f-d1bfbd6305ff).
+
+## Install
+
+```bash
+npm install @xyz17711/sanctions-check
+```
+
+## Methods
+
+| Method | Description |
+| --- | --- |
+| `screenName` | Sanctions check: OFAC list check and sanctions screening of a person or company name against OFAC SDN, EU and UN lists (AML KYC) ($0.01, x402) |
+
+## Quickstart
+
+```typescript
+import { Client } from "@xyz17711/sanctions-check";
+
+const client = new Client("https://api.17711.xyz/registry/🚫 sanctions-check-service");
+// see the Methods table above for every available call and its request/response type
+```
+
+## Paying past the free quota
+
+Every gated tool allows a small number of free calls per day; beyond that it returns a 402
+challenge. Without a wallet configured, this client throws `PaymentRequiredError` with the price,
+network, and payee address attached:
+
+```typescript
+import { Client, PaymentRequiredError } from "@xyz17711/sanctions-check";
+
+const client = new Client("https://api.17711.xyz/registry/🚫 sanctions-check-service");
+try {
+  await client.screenName(/* ... */);
+} catch (e) {
+  if (e instanceof PaymentRequiredError) {
+    console.log(`needs ${e.priceUsdc} USDC on ${e.network}, payable to ${e.payTo}`);
+  }
+}
+```
+
+To pay automatically, configure a wallet on the client -- the private key should come from your
+own environment/secrets manager, never a literal string in source code:
+
+```typescript
+import { Client } from "@xyz17711/sanctions-check";
+
+const client = new Client("https://api.17711.xyz/registry/🚫 sanctions-check-service", {
+  x402PrivateKey: process.env.X402_PRIVATE_KEY,
+  x402ExpectedNetwork: "eip155:8453", // Base mainnet; use eip155:84532 for Base Sepolia testnet
+  x402MaxPaymentUsdc: 0.01,           // refuse any single call above this
+  x402MaxTotalSpendUsdc: 1.0,         // refuse once this WALLET's lifetime spend would exceed it
+});
+```
+
+**Never commit a private key.** Both spend caps are required together with the key -- a wallet
+with real funds and no explicit caps refuses to construct at all (`WalletConfigError`), on
+purpose. The cumulative cap is tracked per wallet address, shared by every `Client` you construct
+with that same key in this process.
+
+## LangChain.js
+
+```typescript
+import { Client } from "@xyz17711/sanctions-check";
+import { SanctionsCheckToolkit } from "@xyz17711/sanctions-check/langchain";
+
+const client = new Client("https://api.17711.xyz/registry/🚫 sanctions-check-service", { /* ...wallet options... */ });
+const tools = new SanctionsCheckToolkit(client).getTools();
+```
+
+Requires the optional `@langchain/core`+`zod` peer dependencies (`npm install @langchain/core
+zod`) -- importing the base package above never requires them; only `@xyz17711/sanctions-check/langchain`
+does.
+
+## License
+
+MIT -- see [`LICENSE`](../../LICENSE), shared by every language's client library in the
+`clients` repo this package lives in.

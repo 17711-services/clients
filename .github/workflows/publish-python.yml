@@ -92,6 +92,9 @@ jobs:
     needs: discover
     if: needs.discover.outputs.packages != '[]'
     runs-on: ubuntu-latest
+    # One GitHub environment per package: PyPI allows only ONE pending publisher per
+    # (repository, workflow, environment), so each package name needs its own environment name.
+    environment: pypi-${{ matrix.package.name }}
     permissions:
       id-token: write # required for PyPI Trusted Publishing
       contents: write # required to push the per-package release tag

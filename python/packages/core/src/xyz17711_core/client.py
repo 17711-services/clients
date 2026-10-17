@@ -467,5 +467,9 @@ class Client:
             "accepted": requirements,
             "payload": {"signature": signature_hex, "authorization": authorization},
         }
+        # x402 v2: echo the challenge's `extensions` (notably `bazaar`) back unchanged so the
+        # facilitator can catalog the resource once this payment settles. Omitted when absent.
+        if payment_required.get("extensions"):
+            payload["extensions"] = payment_required["extensions"]
         logger.debug("Client._sign_payment: signature produced, nonce=%s", nonce_hex)
         return _encode_header(payload)

@@ -351,12 +351,17 @@ export class Client {
       validBefore: String(validBefore),
       nonce: nonceHex,
     };
-    const payload = {
+    const payload: Record<string, unknown> = {
       x402Version: paymentRequired.x402Version,
       resource: paymentRequired.resource,
       accepted: requirements,
       payload: { signature, authorization },
     };
+    // x402 v2: echo the challenge's `extensions` (notably `bazaar`) back unchanged so the
+    // facilitator can catalog the resource once this payment settles. Omitted when absent.
+    if (paymentRequired.extensions) {
+      payload.extensions = paymentRequired.extensions;
+    }
     return encodeHeader(payload);
   }
 }

@@ -25,10 +25,19 @@ npm install @xyz17711/proxy-pool    # the proxy-pool service's own package
 
 Every available service:
 
+- `address-risk` -- `npm install @xyz17711/address-risk`
+- `company-check` -- `npm install @xyz17711/company-check`
+- `company-profile` -- `npm install @xyz17711/company-profile`
+- `contact-finder` -- `npm install @xyz17711/contact-finder`
+- `domain-security` -- `npm install @xyz17711/domain-security`
 - `emoji-match` -- `npm install @xyz17711/emoji-match`
+- `extract-correct` -- `npm install @xyz17711/extract-correct`
 - `ip-blocklist` -- `npm install @xyz17711/ip-blocklist`
 - `ping` -- `npm install @xyz17711/ping`
 - `proxy-pool` -- `npm install @xyz17711/proxy-pool`
+- `sanctions-check` -- `npm install @xyz17711/sanctions-check`
+- `token-verdict` -- `npm install @xyz17711/token-verdict`
+- `url-extract` -- `npm install @xyz17711/url-extract`
 - `web-scraper` -- `npm install @xyz17711/web-scraper`
 - `websearch` -- `npm install @xyz17711/websearch`
 

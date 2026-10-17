@@ -1,0 +1,21 @@
+[project]
+name = "xyz17711-address-risk"
+version = "0.1.0"
+description = "Generated typed client for the 🛑 address-risk-service 17711.xyz microservice."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = ["xyz17711>=0.1.0"]
+
+# Only needed to import `langchain_tools` (never the base `client`/`models` modules) -- see that
+# module's own doc comment for why it's an extra, never a hard dependency.
+[project.optional-dependencies]
+langchain = ["langchain-core>=1.2,<2.0"]
+test = ["pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/xyz17711_address_risk"]

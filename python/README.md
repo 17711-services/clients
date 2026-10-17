@@ -29,10 +29,19 @@ pip install "xyz17711[proxy-pool]"    # core client + the proxy-pool service's o
 
 Every available service:
 
+- `address-risk` -- `pip install "xyz17711[address-risk]"`
+- `company-check` -- `pip install "xyz17711[company-check]"`
+- `company-profile` -- `pip install "xyz17711[company-profile]"`
+- `contact-finder` -- `pip install "xyz17711[contact-finder]"`
+- `domain-security` -- `pip install "xyz17711[domain-security]"`
 - `emoji-match` -- `pip install "xyz17711[emoji-match]"`
+- `extract-correct` -- `pip install "xyz17711[extract-correct]"`
 - `ip-blocklist` -- `pip install "xyz17711[ip-blocklist]"`
 - `ping` -- `pip install "xyz17711[ping]"`
 - `proxy-pool` -- `pip install "xyz17711[proxy-pool]"`
+- `sanctions-check` -- `pip install "xyz17711[sanctions-check]"`
+- `token-verdict` -- `pip install "xyz17711[token-verdict]"`
+- `url-extract` -- `pip install "xyz17711[url-extract]"`
 - `web-scraper` -- `pip install "xyz17711[web-scraper]"`
 - `websearch` -- `pip install "xyz17711[websearch]"`
 

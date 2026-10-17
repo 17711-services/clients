@@ -1,0 +1,42 @@
+{
+  "name": "@xyz17711/sanctions-check",
+  "version": "0.1.0",
+  "description": "Generated typed client for the 🚫 sanctions-check-service 17711.xyz microservice.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./langchain": {
+      "types": "./dist/langchain.d.ts",
+      "default": "./dist/langchain.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "npm run build && node --test test/*.test.mjs"
+  },
+  "dependencies": {
+    "@xyz17711/core": "^0.1.0"
+  },
+  "peerDependencies": {
+    "@langchain/core": ">=0.3",
+    "zod": "^3 || ^4"
+  },
+  "peerDependenciesMeta": {
+    "@langchain/core": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@langchain/core": "^1.2",
+    "zod": "^4"
+  }
+}

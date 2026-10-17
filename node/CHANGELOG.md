@@ -5,6 +5,14 @@ whole `@xyz17711` package family -- `@xyz17711/core` plus every generated
 `@xyz17711/<service>` package). Format loosely follows [Keep a
 Changelog](https://keepachangelog.com/).
 
+## [Unreleased]
+
+### Fixed
+
+- The core `Client` now echoes the 402 challenge's `extensions` (notably `bazaar`) back unchanged in
+  the signed payment payload, as x402 v2 requires. Without it a facilitator cannot catalog the
+  paid resource in its Bazaar. Omitted when the challenge carries none.
+
 ## [0.1.0] - 2026-08-26
 
 ### Added

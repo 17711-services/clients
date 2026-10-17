@@ -158,6 +158,44 @@ test("post pays and retries on a 402", async () => {
   assert.ok(Math.abs(_internal.cumulativeSpentByAddress.get(TEST_ADDRESS) - 0.01) < 1e-9);
 });
 
+// --- extensions echo ------------------------------------------------------------------------
+
+test("the challenge's extensions (bazaar) are echoed unchanged in the signed payload", async () => {
+  const extensions = { bazaar: { info: { input: { type: "http", method: "POST" } } } };
+  let seen;
+  globalThis.fetch = mockFetch(async (_url, init) => {
+    const sig = new Headers(init.headers).get("PAYMENT-SIGNATURE");
+    if (sig) {
+      seen = _internal.decodeHeader(sig);
+      return new Response(JSON.stringify({ ok: true }), { status: 200 });
+    }
+    return new Response(null, {
+      status: 402,
+      headers: {
+        "PAYMENT-REQUIRED": _internal.encodeHeader({ ...PAYMENT_REQUIRED_BODY, extensions }),
+      },
+    });
+  });
+  const client = new TestClient("https://example.test", withWallet());
+  await client.callPost("/v1/tool", {});
+  assert.deepEqual(seen.extensions, extensions);
+});
+
+test("no extensions key in the payload when the challenge carries none", async () => {
+  let seen;
+  globalThis.fetch = mockFetch(async (_url, init) => {
+    const sig = new Headers(init.headers).get("PAYMENT-SIGNATURE");
+    if (sig) {
+      seen = _internal.decodeHeader(sig);
+      return new Response(JSON.stringify({ ok: true }), { status: 200 });
+    }
+    return paymentRequiredResponse();
+  });
+  const client = new TestClient("https://example.test", withWallet());
+  await client.callPost("/v1/tool", {});
+  assert.equal("extensions" in seen, false);
+});
+
 // --- caps and validation --------------------------------------------------------------------
 
 test("per-call cap rejects before a second request is ever sent", async () => {

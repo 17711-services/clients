@@ -159,6 +159,41 @@ class TestSuccessfulPayment:
         assert calls["n"] == 2
 
 
+class TestExtensionsEcho:
+    """x402 v2: the challenge's `extensions` (the `bazaar` one in particular) must be echoed back in
+    the signed payload, or no facilitator can catalog the resource when the payment settles."""
+
+    def test_the_challenge_extensions_are_echoed_unchanged(self):
+        extensions = {"bazaar": {"info": {"input": {"type": "http", "method": "POST"}}}}
+        seen = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            if request.headers.get("PAYMENT-SIGNATURE"):
+                seen["payload"] = _decode_header(request.headers["PAYMENT-SIGNATURE"])
+                return httpx.Response(200, json={"ok": True})
+            return httpx.Response(
+                402,
+                headers={"PAYMENT-REQUIRED": _encode_header({**PAYMENT_REQUIRED_BODY, "extensions": extensions})},
+            )
+
+        client = _mock_client(handler, **_paid_wallet_kwargs())
+        assert client._post("/v1/tool", {}) == {"ok": True}
+        assert seen["payload"]["extensions"] == extensions
+
+    def test_no_extensions_key_when_the_challenge_has_none(self):
+        seen = {}
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            if request.headers.get("PAYMENT-SIGNATURE"):
+                seen["payload"] = _decode_header(request.headers["PAYMENT-SIGNATURE"])
+                return httpx.Response(200, json={"ok": True})
+            return _payment_required_response()
+
+        client = _mock_client(handler, **_paid_wallet_kwargs())
+        client._post("/v1/tool", {})
+        assert "extensions" not in seen["payload"]
+
+
 class TestCapsAndValidation:
     def test_per_call_cap_rejects_before_signing(self):
         calls = {"n": 0}
