@@ -71,6 +71,19 @@ jobs:
                   raise
 
 
+          def project_exists(name: str) -> bool:
+              # A brand-new project can't be published through Trusted Publishing before it exists
+              # (and the first upload is done by hand): only new VERSIONS of existing projects are
+              # this workflow's job.
+              try:
+                  urllib.request.urlopen(f"https://pypi.org/pypi/{name}/json", timeout=10)
+                  return True
+              except urllib.error.HTTPError as e:
+                  if e.code == 404:
+                      return False
+                  raise
+
+
           out = []
           for pkg_dir in sorted(pathlib.Path("python/packages").iterdir()):
               pyproject = pkg_dir / "pyproject.toml"
@@ -79,7 +92,9 @@ jobs:
               data = tomllib.loads(pyproject.read_text())
               name = data["project"]["name"]
               version = data["project"]["version"]
-              if not already_published(name, version):
+              if not project_exists(name):
+                  print(f"{name}: project not on PyPI yet, first upload is manual -- skipping", file=sys.stderr)
+              elif not already_published(name, version):
                   out.append({"dir": str(pkg_dir), "name": name, "version": version})
                   print(f"will publish {name}@{version}", file=sys.stderr)
               else:
@@ -100,6 +115,7 @@ jobs:
       id-token: write # required for PyPI Trusted Publishing
       contents: write # required to push the per-package release tag
     strategy:
+      fail-fast: false
       matrix:
         package: ${{ fromJson(needs.discover.outputs.packages) }}
     steps:
